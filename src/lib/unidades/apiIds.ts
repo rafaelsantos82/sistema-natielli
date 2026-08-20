@@ -1,6 +1,6 @@
 /**
- * UUIDs do seed backend/migrations/000002_pacientes_core.up.sql
- * Slugs alinhados a UNIDADE_PADRAO_ID em useUnidades.ts
+ * UUIDs estáveis do backend. Duque/Tijuca permanecem no mapa só para
+ * localStorage/API antiga; não entram mais no seletor (migration 000034).
  */
 export const UNIDADE_API_IDS: Record<string, string> = {
   'unidade-duque-caxias': 'a0000000-0000-4000-8000-000000000001',

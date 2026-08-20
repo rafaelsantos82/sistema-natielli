@@ -24,7 +24,7 @@ vi.mock('@/lib/api/pacientes', () => ({
 }));
 
 vi.mock('@/contexts/UnidadeContext', () => ({
-  useUnidadeAtiva: () => ({ unidadeAtivaId: 'unidade-duque-caxias' }),
+  useUnidadeAtiva: () => ({ unidadeAtivaId: 'unidade-catanduva' }),
 }));
 
 function wrapper({ children }: { children: ReactNode }) {

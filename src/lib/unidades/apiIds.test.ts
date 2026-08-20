@@ -16,9 +16,9 @@ describe('apiIds', () => {
   });
 
   it('builds principal link', () => {
-    const links = buildUnidadeIdsPayload('unidade-tijuca');
+    const links = buildUnidadeIdsPayload('unidade-londrina');
     expect(links[0].principal).toBe(true);
-    expect(links[0].unidade_id).toBe('a0000000-0000-4000-8000-000000000002');
+    expect(links[0].unidade_id).toBe('a0000000-0000-4000-8000-000000000004');
   });
 
   it('prefers apiId from unidade context over slug map', () => {

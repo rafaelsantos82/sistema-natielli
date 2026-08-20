@@ -21,8 +21,8 @@ vi.mock('@/hooks/useBalancetes', () => ({
 
 vi.mock('@/contexts/UnidadeContext', () => ({
   useUnidadeAtiva: () => ({
-    unidadeAtivaId: 'unidade-duque-caxias',
-    unidadeAtiva: { id: 'unidade-duque-caxias', nome: 'Duque de Caxias' },
+    unidadeAtivaId: 'unidade-catanduva',
+    unidadeAtiva: { id: 'unidade-catanduva', nome: 'Catanduva' },
   }),
 }));
 

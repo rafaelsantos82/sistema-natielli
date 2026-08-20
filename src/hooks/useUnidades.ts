@@ -19,31 +19,14 @@ export interface Unidade {
 }
 
 const STORAGE_KEY = 'unidades';
+const UNIDADES_REMOVIDAS = new Set(['unidade-duque-caxias', 'unidade-tijuca']);
 
-export const UNIDADE_PADRAO_ID = 'unidade-duque-caxias';
+export const UNIDADE_PADRAO_ID = 'unidade-catanduva';
 
 const SEED: Unidade[] = [
   {
     id: UNIDADE_PADRAO_ID,
     apiId: getUnidadeApiId(UNIDADE_PADRAO_ID) ?? undefined,
-    nome: 'Duque de Caxias',
-    slug: 'duque-de-caxias',
-    status: 'ativa',
-    createdAt: new Date(0).toISOString(),
-    updatedAt: new Date(0).toISOString(),
-  },
-  {
-    id: 'unidade-tijuca',
-    apiId: 'a0000000-0000-4000-8000-000000000002',
-    nome: 'Tijuca',
-    slug: 'tijuca',
-    status: 'ativa',
-    createdAt: new Date(0).toISOString(),
-    updatedAt: new Date(0).toISOString(),
-  },
-  {
-    id: 'unidade-catanduva',
-    apiId: 'a0000000-0000-4000-8000-000000000003',
     nome: 'Catanduva',
     slug: 'catanduva',
     status: 'ativa',
@@ -116,19 +99,19 @@ export const ensureUnidadesSeed = (): Unidade[] => {
   if (featureFlags.unidadesApiEnabled) {
     return SEED;
   }
-  const current = readStored();
+  const stored = readStored();
+  const current = stored.filter((u) => !UNIDADES_REMOVIDAS.has(u.id));
   if (current.length === 0) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(SEED));
     return SEED;
   }
   const ids = new Set(current.map((u) => u.id));
   const missing = SEED.filter((s) => !ids.has(s.id));
-  if (missing.length > 0) {
-    const next = [...current, ...missing];
+  const next = missing.length > 0 ? [...current, ...missing] : current;
+  if (missing.length > 0 || next.length !== stored.length) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-    return next;
   }
-  return current;
+  return next;
 };
 
 export const getUnidadesAtivas = (): Unidade[] =>

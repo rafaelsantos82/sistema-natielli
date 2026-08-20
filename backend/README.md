@@ -99,8 +99,12 @@ Após `migrate-up`, existem unidades com slugs alinhados ao frontend:
 
 | Slug | UUID fixo (seed) |
 |------|------------------|
-| `unidade-duque-caxias` | `a0000000-0000-4000-8000-000000000001` |
-| `unidade-tijuca` | `a0000000-0000-4000-8000-000000000002` |
+| `unidade-catanduva` | `a0000000-0000-4000-8000-000000000003` |
+| `unidade-londrina` | `a0000000-0000-4000-8000-000000000004` |
+| `unidade-sertanopolis` | `a0000000-0000-4000-8000-000000000005` |
+| `unidade-online` | `a0000000-0000-4000-8000-000000000006` |
+
+Duque de Caxias (`…000001`) e Tijuca (`…000002`) são criadas na `000002` e removidas na `000034`.
 
 No create/update, envie `unidade_ids: [{ "unidade_id": "<uuid>", "principal": true }]`.
 

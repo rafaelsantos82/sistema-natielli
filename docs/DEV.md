@@ -54,7 +54,7 @@ make migrate-up
 curl -s http://localhost:8080/api/v1/health
 ```
 
-Após `migrate-up`, a migration `000027` insere **19 salas ativas** na unidade Duque de Caxias (`a0000000-0000-4000-8000-000000000001`), visíveis em Salas de Atendimento e no select de agendamento.
+Após `migrate-up`, a `000027` ainda insere 19 salas em Duque de Caxias (install novo), e a `000034` as apaga junto com Duque/Tijuca se não houver paciente/consulta. O seletor fica com Catanduva, Londrina, Sertanópolis e Online. Não há seed de salas para Catanduva neste passo.
 
 Postgres fica em `127.0.0.1:5432` **somente em dev** — não replicar em produção.
 

@@ -97,7 +97,7 @@ test.describe('Agenda — sincronização após novo agendamento', () => {
   test('3. validar na minha agenda do profissional', async ({ page }) => {
     test.skip(!profissionalId, 'profissionalId não definido no teste anterior');
 
-    await page.goto(`/minha-agenda?profissionalId=${profissionalId}&unidade=unidade-duque-caxias`);
+    await page.goto(`/minha-agenda?profissionalId=${profissionalId}&unidade=unidade-catanduva`);
     await page.waitForResponse(
       (r) =>
         r.url().includes('/consultas') &&

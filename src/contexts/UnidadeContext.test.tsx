@@ -1,5 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, act } from '@testing-library/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import type { ReactNode } from 'react';
 import { UnidadeProvider, useUnidadeAtiva } from './UnidadeContext';
 
 // Mock auth para controlar `unidadesPermitidas`.
@@ -28,9 +30,14 @@ const Probe = () => {
       <div data-testid="ativa-nome">{unidadeAtiva?.nome ?? '—'}</div>
       <div data-testid="qtd">{unidades.length}</div>
       <div data-testid="pode-trocar">{podeTrocarUnidade ? 'sim' : 'nao'}</div>
-      <button onClick={() => setUnidadeAtiva('unidade-tijuca')}>trocar-tijuca</button>
+      <button onClick={() => setUnidadeAtiva('unidade-londrina')}>trocar-londrina</button>
     </div>
   );
+};
+
+const renderUnidade = (ui: ReactNode) => {
+  const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+  return render(<QueryClientProvider client={client}>{ui}</QueryClientProvider>);
 };
 
 describe('UnidadeContext', () => {
@@ -39,50 +46,61 @@ describe('UnidadeContext', () => {
     authState.unidadesPermitidas = undefined;
   });
 
-  it('faz seed das unidades padrão e ativa Duque de Caxias por default', () => {
-    render(
+  it('faz seed das unidades padrão e ativa Catanduva por default', () => {
+    renderUnidade(
       <UnidadeProvider>
         <Probe />
       </UnidadeProvider>,
     );
-    expect(screen.getByTestId('ativa-id').textContent).toBe('unidade-duque-caxias');
-    expect(screen.getByTestId('ativa-nome').textContent).toBe('Duque de Caxias');
-    expect(Number(screen.getByTestId('qtd').textContent)).toBeGreaterThanOrEqual(2);
+    expect(screen.getByTestId('ativa-id').textContent).toBe('unidade-catanduva');
+    expect(screen.getByTestId('ativa-nome').textContent).toBe('Catanduva');
+    expect(Number(screen.getByTestId('qtd').textContent)).toBe(4);
     expect(screen.getByTestId('pode-trocar').textContent).toBe('sim');
   });
 
   it('persiste a unidade ativa em localStorage ao trocar', () => {
-    render(
+    renderUnidade(
       <UnidadeProvider>
         <Probe />
       </UnidadeProvider>,
     );
     act(() => {
-      screen.getByText('trocar-tijuca').click();
+      screen.getByText('trocar-londrina').click();
     });
-    expect(screen.getByTestId('ativa-id').textContent).toBe('unidade-tijuca');
-    expect(localStorage.getItem('unidade_ativa')).toBe('unidade-tijuca');
+    expect(screen.getByTestId('ativa-id').textContent).toBe('unidade-londrina');
+    expect(localStorage.getItem('unidade_ativa')).toBe('unidade-londrina');
   });
 
   it('lê a unidade ativa do localStorage no mount', () => {
-    localStorage.setItem('unidade_ativa', 'unidade-tijuca');
-    render(
+    localStorage.setItem('unidade_ativa', 'unidade-londrina');
+    renderUnidade(
       <UnidadeProvider>
         <Probe />
       </UnidadeProvider>,
     );
-    expect(screen.getByTestId('ativa-id').textContent).toBe('unidade-tijuca');
+    expect(screen.getByTestId('ativa-id').textContent).toBe('unidade-londrina');
+  });
+
+  it('cai no fallback quando localStorage aponta para unidade removida', () => {
+    localStorage.setItem('unidade_ativa', 'unidade-duque-caxias');
+    renderUnidade(
+      <UnidadeProvider>
+        <Probe />
+      </UnidadeProvider>,
+    );
+    expect(screen.getByTestId('ativa-id').textContent).toBe('unidade-catanduva');
+    expect(localStorage.getItem('unidade_ativa')).toBe('unidade-catanduva');
   });
 
   it('restringe unidades visíveis quando o usuário tem unidadesPermitidas', () => {
-    authState.unidadesPermitidas = ['unidade-tijuca'];
-    render(
+    authState.unidadesPermitidas = ['unidade-londrina'];
+    renderUnidade(
       <UnidadeProvider>
         <Probe />
       </UnidadeProvider>,
     );
     expect(screen.getByTestId('qtd').textContent).toBe('1');
-    expect(screen.getByTestId('ativa-id').textContent).toBe('unidade-tijuca');
+    expect(screen.getByTestId('ativa-id').textContent).toBe('unidade-londrina');
     expect(screen.getByTestId('pode-trocar').textContent).toBe('nao');
   });
 

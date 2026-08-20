@@ -107,9 +107,13 @@ Removidos do formulário: tabagismo, alcoolismo, estresse, campos reprodutivos a
 ### Multi-filial
 
 ```text
-unidade-duque-caxias → a0000000-0000-4000-8000-000000000001
-unidade-tijuca       → a0000000-0000-4000-8000-000000000002
+unidade-catanduva    → a0000000-0000-4000-8000-000000000003
+unidade-londrina     → a0000000-0000-4000-8000-000000000004
+unidade-sertanopolis → a0000000-0000-4000-8000-000000000005
+unidade-online       → a0000000-0000-4000-8000-000000000006
 ```
+
+Duque/Tijuca saíram na `000034`. Slugs antigos ainda existem em `apiIds.ts` só para localStorage/API antiga; não aparecem no seletor.
 
 Implementado em `src/lib/unidades/apiIds.ts`; listagem usa `unidade_id` da unidade ativa (`UnidadeContext`).
 
@@ -147,7 +151,7 @@ Pendente: rate limit login dedicado, refresh token, CSP fino no nginx.
 | Unidades | `GET /unidades` | Sim (`useUnidades` + `UnidadeContext`) |
 | Profissionais | `/profissionais` + `/conselhos` | Sim (`useProfissionais`, página `Profissionais.tsx`) |
 | Consultas | `/consultas` + confirmar/cancelar/concluir/vincular/aprovar/rejeitar | Sim (`useConsultas`). POST/PUT exigem `sala_id` (sala ativa da mesma `unidade_id`); resposta inclui `sala_id` e `sala_nome`; cria/atualiza reserva vinculada em `reservas`. |
-| Salas / reservas | `/salas` + `/salas/:id/reservas` | Sim (`useSalas`). Cadastro UI: `nome_sala`, `unidade_id`, `codigo?`, `status?`. POST/PUT mínimo: `nome_sala` + `unidade_id` obrigatórios; `especialidades`, `recursos` e `capacidade` opcionais na API (legado no banco). Seed DC: migration `000027` (19 salas ativas, UUIDs `b0000000-…0001`–`…0019`). |
+| Salas / reservas | `/salas` + `/salas/:id/reservas` | Sim (`useSalas`). Cadastro UI: `nome_sala`, `unidade_id`, `codigo?`, `status?`. POST/PUT mínimo: `nome_sala` + `unidade_id` obrigatórios; `especialidades`, `recursos` e `capacidade` opcionais na API (legado no banco). Seed DC (`000027`) é removido na `000034` junto com Duque/Tijuca. |
 | Notification settings | `GET/PUT /notification-settings` | Sim (`useConsultas`) |
 | Terapias | `/terapias` | Sim (`useTerapias`) |
 | Anamneses / respostas | `/anamneses`, `/respostas-anamnese` | Sim (`useAnamneses` CRUD + respostas POST) |

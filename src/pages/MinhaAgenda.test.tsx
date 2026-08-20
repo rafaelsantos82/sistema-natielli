@@ -45,7 +45,7 @@ vi.mock('@/contexts/AuthContext', () => ({
 
 const PROF_ID = 'prof-1';
 const PROF_ID_2 = 'prof-2';
-const TIJUCA_ID = 'unidade-tijuca';
+const LONDRINA_ID = 'unidade-londrina';
 
 const seedProfissionais = (extra: Profissional[] = []) => {
   const profissional: Profissional = {
@@ -53,7 +53,7 @@ const seedProfissionais = (extra: Profissional[] = []) => {
     nome: 'Dra. Maria',
     email: 'prof@clinica.com',
     status: 'ativo',
-    unidadeIds: ['unidade-duque-caxias'],
+    unidadeIds: ['unidade-catanduva'],
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };
@@ -280,7 +280,7 @@ describe('MinhaAgenda', () => {
       nome: 'Dr. João',
       email: 'joao@clinica.com',
       status: 'ativo',
-      unidadeIds: ['unidade-duque-caxias'],
+      unidadeIds: ['unidade-catanduva'],
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
@@ -321,7 +321,7 @@ describe('MinhaAgenda', () => {
       nome: 'Dr. João',
       email: 'joao@clinica.com',
       status: 'ativo',
-      unidadeIds: ['unidade-duque-caxias'],
+      unidadeIds: ['unidade-catanduva'],
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
@@ -351,7 +351,7 @@ describe('MinhaAgenda', () => {
         nome: 'Dra. Maria',
         email: 'admin@x.com',
         status: 'ativo',
-        unidadeIds: [UNIDADE_PADRAO_ID, TIJUCA_ID],
+        unidadeIds: [UNIDADE_PADRAO_ID, LONDRINA_ID],
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       } as Profissional,
@@ -359,28 +359,28 @@ describe('MinhaAgenda', () => {
     seedConsultas([
       baseConsulta({
         id: 'cdc',
-        pacienteNome: 'Paciente DC',
+        pacienteNome: 'Paciente Catanduva',
         unidadeId: UNIDADE_PADRAO_ID,
         dataHora: isoHoje(8),
       }),
       baseConsulta({
         id: 'ctj',
-        pacienteNome: 'Paciente Tijuca',
-        unidadeId: TIJUCA_ID,
+        pacienteNome: 'Paciente Londrina',
+        unidadeId: LONDRINA_ID,
         dataHora: isoHoje(9),
       }),
     ]);
 
     renderPage(`/minha-agenda?profissionalId=${PROF_ID}&unidade=${UNIDADE_PADRAO_ID}`);
 
-    expect(screen.getByText('Paciente DC')).toBeInTheDocument();
-    expect(screen.queryByText('Paciente Tijuca')).not.toBeInTheDocument();
+    expect(screen.getByText('Paciente Catanduva')).toBeInTheDocument();
+    expect(screen.queryByText('Paciente Londrina')).not.toBeInTheDocument();
 
     fireEvent.click(screen.getByLabelText(/Filtrar por unidade/i));
-    fireEvent.click(screen.getByRole('option', { name: /^Tijuca$/i }));
+    fireEvent.click(screen.getByRole('option', { name: /^Londrina$/i }));
 
-    expect(screen.getByText('Paciente Tijuca')).toBeInTheDocument();
-    expect(screen.queryByText('Paciente DC')).not.toBeInTheDocument();
+    expect(screen.getByText('Paciente Londrina')).toBeInTheDocument();
+    expect(screen.queryByText('Paciente Catanduva')).not.toBeInTheDocument();
   });
 
   it('funcionário não vê select de profissional', () => {

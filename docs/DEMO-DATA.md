@@ -24,7 +24,7 @@ make up && make migrate-up
 # (opcional) fixe os envs
 export API_BASE=http://localhost:8080/api/v1
 export BOOTSTRAP_AUTH_TOKEN=change-bootstrap-token
-export UNIDADE_ID_DEFAULT=a0000000-0000-4000-8000-000000000001
+export UNIDADE_ID_DEFAULT=a0000000-0000-4000-8000-000000000003
 
 ./scripts/seed-demo.sh
 ```
@@ -70,7 +70,7 @@ O `RUN_ID` mais recente fica no final do output do script:
 
 Este seed **não cria unidades** (endpoint é read-only). Ele usa por padrão a unidade:
 
-- `UNIDADE_ID_DEFAULT=a0000000-0000-4000-8000-000000000001`
+- `UNIDADE_ID_DEFAULT=a0000000-0000-4000-8000-000000000003` (Catanduva)
 
 ### Observação sobre logs
 

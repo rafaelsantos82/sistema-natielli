@@ -157,20 +157,21 @@ curl -fsS -H "Authorization: Bearer $TOKEN" https://sistema.natielli.com.br/api/
 2. Criar consulta para um paciente → `GET /pacientes` deve incluir o paciente com métricas de carteira.
 3. Paciente com apenas `profissional_responsavel` e sem consulta → não aparece na lista do terapeuta.
 
-### Seed salas Duque de Caxias (`000027_seed_salas_duque_caxias`)
+### Remoção Duque de Caxias e Tijuca (`000034_drop_duque_tijuca`)
 
-- Insere 19 salas **Ativas** na unidade Duque de Caxias com UUIDs fixos (`b0000000-0000-4000-8000-000000000001` … `…0019`).
-- Idempotente: `ON CONFLICT (id) DO UPDATE` (redeploy não duplica).
-- Aplicada com o fluxo habitual de migrations (`migrate.sh` / `make deploy-prod`).
+- A `000027` ainda insere 19 salas em Duque em install novo; a `000034` as apaga em seguida, junto com as unidades Duque de Caxias (`…000001`) e Tijuca (`…000002`).
+- Guarda: aborta se houver paciente, consulta, RH, estoque, financeiro ou outro vínculo de negócio nessas unidades.
+- Vínculos de usuário/profissional, se existirem, são realocados para Catanduva (`…000003`) antes do DELETE.
+- Unidades que permanecem: Catanduva, Londrina, Sertanópolis, Online. Sem seed de salas novas neste passo.
 
 **Smoke pós-migration:**
 
 ```bash
 curl -fsS -H "Authorization: Bearer $TOKEN" \
-  "https://sistema.natielli.com.br/api/v1/salas?unidade_id=a0000000-0000-4000-8000-000000000001&status=Ativa&page_size=50"
+  "https://sistema.natielli.com.br/api/v1/unidades?page_size=20"
 ```
 
-Resposta deve listar 19 salas (SALA 01 … ABA GRUPO 19). O `down` da migration remove apenas esses IDs; falha se já houver consultas/reservas vinculadas.
+Resposta deve listar **4** unidades (sem Duque/Tijuca). `GET /salas?unidade_id=a0000000-0000-4000-8000-000000000001` deve retornar lista vazia ou 404 de unidade inexistente.
 
 ### RBAC por escopo de dados anti-IDOR (`000023_rbac_data_scopes`)
 

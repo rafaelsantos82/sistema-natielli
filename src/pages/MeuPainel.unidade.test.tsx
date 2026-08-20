@@ -17,7 +17,7 @@ vi.mock('@/lib/featureFlags', () => ({
   },
 }));
 
-const TIJUCA_ID = 'unidade-tijuca';
+const LONDRINA_ID = 'unidade-londrina';
 
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual<typeof import('react-router-dom')>('react-router-dom');
@@ -57,7 +57,7 @@ const seedProfissional = () => {
     nome: 'Dra. Multi',
     email: 'admin@x.com',
     status: 'ativo',
-    unidadeIds: [UNIDADE_PADRAO_ID, TIJUCA_ID],
+    unidadeIds: [UNIDADE_PADRAO_ID, LONDRINA_ID],
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   } as Profissional;
@@ -113,59 +113,59 @@ describe('MeuPainel — filtro por unidade', () => {
       JSON.stringify([
         baseConsulta({
           id: 'cdc-1',
-          pacienteNome: 'Paciente DC',
+          pacienteNome: 'Paciente Catanduva',
           unidadeId: UNIDADE_PADRAO_ID,
           dataHora: isoHoje(10),
         }),
         baseConsulta({
           id: 'cdc-2',
-          pacienteNome: 'Paciente DC 2',
+          pacienteNome: 'Paciente Catanduva 2',
           unidadeId: UNIDADE_PADRAO_ID,
           dataHora: isoHoje(11),
         }),
         baseConsulta({
           id: 'ctj-1',
-          pacienteNome: 'Paciente Tijuca',
-          unidadeId: TIJUCA_ID,
+          pacienteNome: 'Paciente Londrina',
+          unidadeId: LONDRINA_ID,
           dataHora: isoHoje(15),
         }),
       ]),
     );
   });
 
-  it('exibe título com a unidade ativa por padrão (Duque de Caxias)', () => {
+  it('exibe título com a unidade ativa por padrão (Catanduva)', () => {
     renderPage();
-    expect(screen.getAllByText(/Meu Painel — Duque de Caxias/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Meu Painel — Catanduva/i).length).toBeGreaterThan(0);
   });
 
   it('lista apenas consultas da unidade ativa por padrão', () => {
     renderPage();
-    expect(screen.getAllByText('Paciente DC').length).toBeGreaterThan(0);
-    expect(screen.getAllByText('Paciente DC 2').length).toBeGreaterThan(0);
-    expect(screen.queryByText('Paciente Tijuca')).not.toBeInTheDocument();
+    expect(screen.getAllByText('Paciente Catanduva').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Paciente Catanduva 2').length).toBeGreaterThan(0);
+    expect(screen.queryByText('Paciente Londrina')).not.toBeInTheDocument();
   });
 
-  it('admin pode escolher "Todas as unidades" e ver consultas de DC e Tijuca', () => {
+  it('admin pode escolher "Todas as unidades" e ver consultas de Catanduva e Londrina', () => {
     renderPage();
     const select = screen.getByLabelText(/Filtrar por unidade/i);
     fireEvent.click(select);
     fireEvent.click(screen.getByRole('option', { name: /Todas as unidades/i }));
 
-    expect(screen.getAllByText('Paciente DC').length).toBeGreaterThan(0);
-    expect(screen.getAllByText('Paciente Tijuca').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Paciente Catanduva').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Paciente Londrina').length).toBeGreaterThan(0);
     expect(screen.getAllByText(/Meu Painel — Todas as unidades/i).length).toBeGreaterThan(0);
   });
 
-  it('ao escolher Tijuca lista apenas consultas dessa unidade', () => {
+  it('ao escolher Londrina lista apenas consultas dessa unidade', () => {
     renderPage();
     const select = screen.getByLabelText(/Filtrar por unidade/i);
     fireEvent.click(select);
-    fireEvent.click(screen.getByRole('option', { name: /^Tijuca$/i }));
+    fireEvent.click(screen.getByRole('option', { name: /^Londrina$/i }));
 
-    expect(screen.getAllByText('Paciente Tijuca').length).toBeGreaterThan(0);
-    expect(screen.queryByText('Paciente DC')).not.toBeInTheDocument();
-    expect(screen.queryByText('Paciente DC 2')).not.toBeInTheDocument();
-    expect(screen.getAllByText(/Meu Painel — Tijuca/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Paciente Londrina').length).toBeGreaterThan(0);
+    expect(screen.queryByText('Paciente Catanduva')).not.toBeInTheDocument();
+    expect(screen.queryByText('Paciente Catanduva 2')).not.toBeInTheDocument();
+    expect(screen.getAllByText(/Meu Painel — Londrina/i).length).toBeGreaterThan(0);
   });
 
   it('funcionario não vê opção "Todas as unidades"', () => {

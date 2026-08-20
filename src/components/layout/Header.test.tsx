@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Header } from './Header';
 import { UnidadeProvider } from '@/contexts/UnidadeContext';
 import { SidebarProvider } from '@/components/ui/sidebar';
@@ -24,16 +25,20 @@ vi.mock('@/contexts/AuthContext', () => ({
   }),
 }));
 
-const renderHeader = () =>
-  render(
-    <MemoryRouter>
-      <UnidadeProvider>
-        <SidebarProvider>
-          <Header title="Pacientes" />
-        </SidebarProvider>
-      </UnidadeProvider>
-    </MemoryRouter>,
+const renderHeader = () => {
+  const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+  return render(
+    <QueryClientProvider client={client}>
+      <MemoryRouter>
+        <UnidadeProvider>
+          <SidebarProvider>
+            <Header title="Pacientes" />
+          </SidebarProvider>
+        </UnidadeProvider>
+      </MemoryRouter>
+    </QueryClientProvider>,
   );
+};
 
 describe('Header — seletor de unidade', () => {
   beforeEach(() => {
@@ -56,17 +61,17 @@ describe('Header — seletor de unidade', () => {
     renderHeader();
     const trigger = screen.getByLabelText('Unidade');
     // Força via API do Select (Radix) testando o estado em localStorage:
-    // disparamos abertura e clique no item Tijuca.
+    // disparamos abertura e clique no item Londrina.
     fireEvent.click(trigger);
-    const item = screen.getByText('Tijuca');
+    const item = screen.getByText('Londrina');
     fireEvent.click(item);
-    expect(localStorage.getItem('unidade_ativa')).toBe('unidade-tijuca');
+    expect(localStorage.getItem('unidade_ativa')).toBe('unidade-londrina');
   });
 
   it('mostra Badge (sem Select) quando o usuário tem apenas uma unidade permitida', () => {
-    authState.unidadesPermitidas = ['unidade-tijuca'];
+    authState.unidadesPermitidas = ['unidade-londrina'];
     renderHeader();
     expect(screen.queryByLabelText('Unidade')).not.toBeInTheDocument();
-    expect(screen.getByText('Tijuca')).toBeInTheDocument();
+    expect(screen.getByText('Londrina')).toBeInTheDocument();
   });
 });

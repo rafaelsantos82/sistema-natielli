@@ -48,4 +48,4 @@ O apply faz backup (`backup-db.sh`) e apaga as planilhas de `/tmp` na droplet. O
 | status `Pausado` | `inativo` |
 | LGPD | `false` |
 
-Unidades novas: Catanduva, Londrina, Sertanópolis, Online. Filtrar no header — a lista em Duque de Caxias permanece vazia.
+Unidades ativas: Catanduva (padrão), Londrina, Sertanópolis, Online. Duque de Caxias e Tijuca foram removidas na migration `000034`.

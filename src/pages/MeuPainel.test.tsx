@@ -50,7 +50,7 @@ const seedProfissionais = (extra: Profissional[] = []) => {
     nome: 'Dra. Maria',
     email: 'prof@clinica.com',
     status: 'ativo',
-    unidadeIds: ['unidade-duque-caxias'],
+    unidadeIds: ['unidade-catanduva'],
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };
@@ -237,7 +237,7 @@ describe('MeuPainel', () => {
       nome: 'Dr. João',
       email: 'joao@clinica.com',
       status: 'ativo',
-      unidadeIds: ['unidade-duque-caxias'],
+      unidadeIds: ['unidade-catanduva'],
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
@@ -282,7 +282,7 @@ describe('MeuPainel', () => {
       nome: 'Dr. João',
       email: 'joao@clinica.com',
       status: 'ativo',
-      unidadeIds: ['unidade-duque-caxias'],
+      unidadeIds: ['unidade-catanduva'],
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };

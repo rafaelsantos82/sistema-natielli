@@ -1,10 +1,21 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Consultas from './Consultas';
 import { UnidadeProvider } from '@/contexts/UnidadeContext';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import type { Consulta } from '@/hooks/useConsultas';
+
+vi.mock('@/lib/featureFlags', () => ({
+  featureFlags: {
+    profissionaisApiEnabled: false,
+    pacientesApiEnabled: false,
+    consultasApiEnabled: false,
+    salasApiEnabled: false,
+    unidadesApiEnabled: false,
+  },
+}));
 
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual<typeof import('react-router-dom')>('react-router-dom');
@@ -27,6 +38,10 @@ vi.mock('@/contexts/AuthContext', () => ({
     login: vi.fn(),
     logout: vi.fn(),
     isLoading: false,
+    hasPermission: () => true,
+    canRead: () => true,
+    canWrite: () => true,
+    canDelete: () => true,
   }),
 }));
 
@@ -47,16 +62,20 @@ const baseConsulta = (over: Partial<Consulta> & { unidadeId?: string }): Consult
     ...over,
   } as Consulta);
 
-const renderPage = () =>
-  render(
-    <MemoryRouter>
-      <UnidadeProvider>
-        <SidebarProvider>
-          <Consultas />
-        </SidebarProvider>
-      </UnidadeProvider>
-    </MemoryRouter>,
+const renderPage = () => {
+  const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+  return render(
+    <QueryClientProvider client={client}>
+      <MemoryRouter>
+        <UnidadeProvider>
+          <SidebarProvider>
+            <Consultas />
+          </SidebarProvider>
+        </UnidadeProvider>
+      </MemoryRouter>
+    </QueryClientProvider>,
   );
+};
 
 describe('Consultas — filtro por unidade', () => {
   beforeEach(() => {
@@ -69,30 +88,30 @@ describe('Consultas — filtro por unidade', () => {
     localStorage.setItem(
       'consultas',
       JSON.stringify([
-        baseConsulta({ id: 'c1', pacienteNome: 'Maria DC', unidadeId: 'unidade-duque-caxias' }),
-        baseConsulta({ id: 'c2', pacienteNome: 'João Tijuca', unidadeId: 'unidade-tijuca' }),
+        baseConsulta({ id: 'c1', pacienteNome: 'Maria Catanduva', unidadeId: 'unidade-catanduva' }),
+        baseConsulta({ id: 'c2', pacienteNome: 'João Londrina', unidadeId: 'unidade-londrina' }),
       ]),
     );
     renderPage();
-    expect(screen.getByText('Maria DC')).toBeInTheDocument();
-    expect(screen.queryByText('João Tijuca')).not.toBeInTheDocument();
+    expect(screen.getByText('Maria Catanduva')).toBeInTheDocument();
+    expect(screen.queryByText('João Londrina')).not.toBeInTheDocument();
   });
 
   it('ao alternar "Ver todas as unidades" exibe consultas de todas as unidades', () => {
     localStorage.setItem(
       'consultas',
       JSON.stringify([
-        baseConsulta({ id: 'c1', pacienteNome: 'Maria DC', unidadeId: 'unidade-duque-caxias' }),
-        baseConsulta({ id: 'c2', pacienteNome: 'João Tijuca', unidadeId: 'unidade-tijuca' }),
+        baseConsulta({ id: 'c1', pacienteNome: 'Maria Catanduva', unidadeId: 'unidade-catanduva' }),
+        baseConsulta({ id: 'c2', pacienteNome: 'João Londrina', unidadeId: 'unidade-londrina' }),
       ]),
     );
     renderPage();
     fireEvent.click(screen.getByRole('button', { name: /Ver todas as unidades/i }));
-    expect(screen.getByText('Maria DC')).toBeInTheDocument();
-    expect(screen.getByText('João Tijuca')).toBeInTheDocument();
+    expect(screen.getByText('Maria Catanduva')).toBeInTheDocument();
+    expect(screen.getByText('João Londrina')).toBeInTheDocument();
   });
 
-  it('consulta legada sem unidadeId é tratada como Duque de Caxias', () => {
+  it('consulta legada sem unidadeId é tratada como Catanduva', () => {
     localStorage.setItem(
       'consultas',
       JSON.stringify([
@@ -105,7 +124,7 @@ describe('Consultas — filtro por unidade', () => {
     localStorage.setItem('consultas', JSON.stringify(arr));
 
     renderPage();
-    // unidade ativa default = duque-caxias → registro legado deve aparecer
+    // unidade ativa default = catanduva → registro legado deve aparecer
     expect(screen.getByText('Legado Sem Unidade')).toBeInTheDocument();
   });
 });
