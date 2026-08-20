@@ -7,7 +7,6 @@ import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { showErrorToast } from '@/lib/ui/showErrorToast';
 import { LogIn } from 'lucide-react';
-import logo from '@/assets/logo.png';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -46,12 +45,7 @@ const Login = () => {
       {/* Left Side - Branding */}
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-primary via-accent to-primary-hover items-center justify-center p-12">
         <div className="max-w-md text-center">
-          <div className="mb-8 flex justify-center">
-            <div className="flex h-24 w-24 items-center justify-center rounded-2xl bg-white shadow-lg p-3">
-              <img src={logo} alt="Espaço Terapia" className="h-full w-full object-contain" />
-            </div>
-          </div>
-          <h1 className="text-4xl font-bold text-white mb-4">Espaço Terapia</h1>
+          <h1 className="text-4xl font-bold text-white mb-4">Natielli Paula</h1>
           <p className="text-lg text-white/90">
             Sistema completo de gestão clínica com segurança e eficiência
           </p>
@@ -62,12 +56,7 @@ const Login = () => {
       <div className="flex-1 flex items-center justify-center p-8 bg-background">
         <div className="w-full max-w-md">
           <div className="mb-8 text-center lg:hidden">
-            <div className="mb-4 flex justify-center">
-              <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-white shadow-lg p-2">
-                <img src={logo} alt="Espaço Terapia" className="h-full w-full object-contain" />
-              </div>
-            </div>
-            <h1 className="text-2xl font-bold text-navy">Espaço Terapia</h1>
+            <h1 className="text-2xl font-bold text-navy">Natielli Paula</h1>
           </div>
 
           <div className="bg-card rounded-2xl shadow-lg p-8 border border-border">
