@@ -11,6 +11,7 @@ import { PacienteForm } from '@/components/forms/PacienteForm';
 import { PacienteQuickForm } from '@/components/forms/PacienteQuickForm';
 import { PacienteFormData } from '@/lib/validations/paciente.schema';
 import { useAuth } from '@/contexts/AuthContext';
+import { useUnidadeAtiva } from '@/contexts/UnidadeContext';
 import { ClinicalScopeBanner } from '@/components/common/ClinicalScopeBanner';
 import {
   usePacienteDetail,
@@ -41,7 +42,10 @@ const Pacientes = () => {
   const [viewItem, setViewItem] = useState<PacienteListRow | null>(null);
   const [isViewOpen, setIsViewOpen] = useState(false);
 
-  const { data, isLoading, isError, error } = usePacientesList(searchQuery);
+  const { isTodasUnidades, unidadeAtiva } = useUnidadeAtiva();
+  const { data, isLoading, isError, error } = usePacientesList(searchQuery, 1, 20, {
+    todasUnidades: isTodasUnidades,
+  });
   const editingPacienteId = useMemo(() => {
     if (selectedItem && isModalOpen && modalMode === 'full') return selectedItem.id;
     if (viewItem && isViewOpen) return viewItem.id;
@@ -57,6 +61,15 @@ const Pacientes = () => {
     usePacienteMutations();
 
   const pacientes = data?.rows ?? [];
+  const pageTitle = isTodasUnidades
+    ? 'Pacientes — Todas as unidades'
+    : unidadeAtiva?.nome
+      ? `Pacientes — ${unidadeAtiva.nome}`
+      : 'Pacientes';
+  const vinculoHint =
+    isTodasUnidades && !selectedItem && unidadeAtiva?.nome
+      ? `O paciente será vinculado a ${unidadeAtiva.nome}`
+      : null;
 
   const columns: DataTableColumn<PacienteListRow>[] = [
     { key: 'nome', label: 'Nome' },
@@ -219,7 +232,7 @@ const Pacientes = () => {
   );
 
   return (
-    <MainLayout title="Pacientes">
+    <MainLayout title={pageTitle}>
       <div className="space-y-4">
         <ClinicalScopeBanner />
 
@@ -275,6 +288,9 @@ const Pacientes = () => {
           onClose={() => setIsModalOpen(false)}
           size={modalMode === 'quick' && !selectedItem ? '2xl' : '4xl'}
         >
+          {vinculoHint && (
+            <p className="text-sm text-muted-foreground mb-3">{vinculoHint}</p>
+          )}
           {modalMode === 'quick' && !selectedItem ? (
             <PacienteQuickForm onSubmit={handleFormSubmit} />
           ) : selectedItem && isDetailLoading ? (

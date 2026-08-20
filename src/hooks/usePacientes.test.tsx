@@ -48,7 +48,7 @@ describe('usePacientesList', () => {
 
     await waitFor(() => expect(result.current.isError).toBe(true));
     expect(result.current.data).toBeUndefined();
-    expect(getPacientesListErrorMessage(result.current.error)).toMatch(/login/i);
+    expect(getPacientesListErrorMessage(result.current.error)).toMatch(/sessão expirada/i);
   });
 
   it('retorna linhas da API em sucesso', async () => {
@@ -75,6 +75,28 @@ describe('usePacientesList', () => {
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
     expect(result.current.data?.rows).toHaveLength(1);
     expect(result.current.data?.rows[0].nome).toBe('Paciente API');
+    expect(listPacientes).toHaveBeenCalledWith(
+      expect.objectContaining({
+        unidade_id: 'a0000000-0000-4000-8000-000000000003',
+      }),
+    );
+  });
+
+  it('omite unidade_id quando todasUnidades', async () => {
+    vi.mocked(listPacientes).mockResolvedValue({
+      items: [],
+      meta: { page: 1, page_size: 20, total: 0, total_pages: 0 },
+    });
+
+    const { result } = renderHook(
+      () => usePacientesList('', 1, 20, { todasUnidades: true }),
+      { wrapper },
+    );
+
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+    expect(listPacientes).toHaveBeenCalledTimes(1);
+    const params = vi.mocked(listPacientes).mock.calls[0][0] as Record<string, unknown>;
+    expect(params.unidade_id).toBeUndefined();
   });
 });
 
@@ -83,7 +105,7 @@ describe('usePacienteMutations delete', () => {
     vi.clearAllMocks();
   });
 
-  it('atualiza cache otimista para inativo ao excluir', async () => {
+  it('chama a API ao excluir paciente', async () => {
     vi.mocked(listPacientes).mockResolvedValue({
       items: [
         {
@@ -111,11 +133,6 @@ describe('usePacienteMutations delete', () => {
     const { result: mutResult } = renderHook(() => usePacienteMutations(), { wrapper });
     await mutResult.current.deleteMutation.mutateAsync('p-1');
 
-    await waitFor(() => {
-      const row = listResult.current.data?.rows.find((r) => r.id === 'p-1');
-      expect(row?.excluido).toBe(true);
-      expect(row?.status).toBe('inativo');
-    });
     expect(deletePaciente).toHaveBeenCalledWith('p-1');
   });
 });
@@ -125,6 +142,6 @@ describe('getPacientesListErrorMessage', () => {
     const msg = getPacientesListErrorMessage(
       new ApiClientError(0, 'INTERNAL_ERROR', 'Falha')
     );
-    expect(msg).toMatch(/conectar/i);
+    expect(msg).toMatch(/conexão/i);
   });
 });

@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { useUnidadeAtiva } from '@/contexts/UnidadeContext';
+import { UNIDADE_TODAS_ID } from '@/hooks/useUnidades';
 import { Menu, LogOut, User, KeyRound, Building2 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -29,8 +30,13 @@ export const Header = ({ title }: HeaderProps) => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const { toggleSidebar } = useSidebar();
-  const { unidades, unidadeAtivaId, setUnidadeAtiva, podeTrocarUnidade, unidadeAtiva } =
-    useUnidadeAtiva();
+  const {
+    unidades,
+    setUnidadeAtiva,
+    podeTrocarUnidade,
+    unidadeAtiva,
+    seletorUnidadeId,
+  } = useUnidadeAtiva();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-card shadow-sm">
@@ -63,11 +69,12 @@ export const Header = ({ title }: HeaderProps) => {
             <div className="hidden md:flex items-center gap-2 mr-2">
               <Building2 className="h-4 w-4 text-muted-foreground" />
               {podeTrocarUnidade ? (
-                <Select value={unidadeAtivaId} onValueChange={setUnidadeAtiva}>
+                <Select value={seletorUnidadeId} onValueChange={setUnidadeAtiva}>
                   <SelectTrigger className="h-9 w-[180px]" aria-label="Unidade">
                     <SelectValue placeholder="Unidade" />
                   </SelectTrigger>
                   <SelectContent>
+                    <SelectItem value={UNIDADE_TODAS_ID}>TODAS</SelectItem>
                     {unidades.map((u) => (
                       <SelectItem key={u.id} value={u.id}>
                         {u.nome}

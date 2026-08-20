@@ -48,24 +48,32 @@ export function getPacientesListErrorMessage(error: unknown): string {
   return formatListLoadError(error, 'pacientes');
 }
 
-export function usePacientesList(search = '', page = 1, pageSize = 20) {
+export function usePacientesList(
+  search = '',
+  page = 1,
+  pageSize = 20,
+  opts?: { todasUnidades?: boolean },
+) {
   const { unidadeAtivaId } = useUnidadeAtiva();
   const unidadeApiId = getUnidadeApiId(unidadeAtivaId);
+  const todasUnidades = Boolean(opts?.todasUnidades);
 
   return useQuery({
-    queryKey: ['pacientes', unidadeAtivaId, search, page],
-    enabled: featureFlags.pacientesApiEnabled && !!unidadeApiId,
+    queryKey: ['pacientes', todasUnidades ? 'all' : unidadeAtivaId, search, page],
+    enabled: featureFlags.pacientesApiEnabled && (todasUnidades || !!unidadeApiId),
     queryFn: async () => {
-      if (!unidadeApiId) {
+      if (!todasUnidades && !unidadeApiId) {
         throw new Error('Unidade ativa sem UUID de API configurado');
       }
       const params: ListPacientesParams = {
-        unidade_id: unidadeApiId,
         q: search || undefined,
         include_deleted: true,
         page,
         page_size: pageSize,
       };
+      if (!todasUnidades && unidadeApiId) {
+        params.unidade_id = unidadeApiId;
+      }
       const { items, meta } = await listPacientes(params);
       return {
         rows: items.map(dtoToListRow),

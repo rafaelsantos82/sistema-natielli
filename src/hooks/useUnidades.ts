@@ -22,6 +22,8 @@ const STORAGE_KEY = 'unidades';
 const UNIDADES_REMOVIDAS = new Set(['unidade-duque-caxias', 'unidade-tijuca']);
 
 export const UNIDADE_PADRAO_ID = 'unidade-catanduva';
+/** Sentinela do seletor (listagem de pacientes). Não é unidade de banco nem UUID. */
+export const UNIDADE_TODAS_ID = 'unidade-todas';
 
 const SEED: Unidade[] = [
   {

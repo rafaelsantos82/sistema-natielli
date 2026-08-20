@@ -68,6 +68,16 @@ describe('Header — seletor de unidade', () => {
     expect(localStorage.getItem('unidade_ativa')).toBe('unidade-londrina');
   });
 
+  it('mostra TODAS no Select e não grava sentinela em unidade_ativa', () => {
+    renderHeader();
+    const trigger = screen.getByLabelText('Unidade');
+    fireEvent.click(trigger);
+    fireEvent.click(screen.getByText('TODAS'));
+    expect(localStorage.getItem('unidade_seletor')).toBe('todas');
+    expect(localStorage.getItem('unidade_ativa')).not.toBe('unidade-todas');
+    expect(localStorage.getItem('unidade_ativa')).toBe('unidade-catanduva');
+  });
+
   it('mostra Badge (sem Select) quando o usuário tem apenas uma unidade permitida', () => {
     authState.unidadesPermitidas = ['unidade-londrina'];
     renderHeader();
