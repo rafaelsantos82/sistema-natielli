@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { useUnidadeAtiva } from '@/contexts/UnidadeContext';
 import { Menu, LogOut, User, KeyRound, Building2 } from 'lucide-react';
-import logo from '@/assets/logo.png';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -46,11 +45,9 @@ export const Header = ({ title }: HeaderProps) => {
           <Menu className="h-5 w-5" />
         </Button>
 
-        {/* Logo */}
         <div className="flex items-center gap-3">
-          <img src={logo} alt="Espaço Terapia" className="h-10 w-10 rounded-full object-contain" />
           <span className="hidden sm:inline-block font-semibold text-primary">
-            Espaço Terapia
+            Natielli Paula
           </span>
         </div>
 

@@ -19,7 +19,6 @@ import {
   changePasswordFormSchema,
   type ChangePasswordFormData,
 } from '@/lib/validations/account.schema';
-import logo from '@/assets/logo.png';
 import { cn } from '@/lib/utils';
 import { Eye, EyeOff } from 'lucide-react';
 
@@ -228,9 +227,6 @@ export function ChangePasswordForm({
   if (variant === 'standalone') {
     return (
       <div className="w-full max-w-md rounded-2xl border border-border bg-card p-8 shadow-lg">
-        <div className="mb-6 flex justify-center">
-          <img src={logo} alt="Espaço Terapia" className="h-12 w-12 object-contain" />
-        </div>
         <h1 className="mb-2 text-2xl font-bold text-navy">{title}</h1>
         <p className="mb-6 text-sm text-muted-foreground">{description}</p>
         {formBody}

@@ -16,7 +16,7 @@ export const generateReciboPJPDF = (
   
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
-  doc.text('Espaço Terapia', pageWidth / 2, 28, { align: 'center' });
+  doc.text('Natielli Paula', pageWidth / 2, 28, { align: 'center' });
 
   // Linha separadora
   doc.setDrawColor(0, 0, 0);

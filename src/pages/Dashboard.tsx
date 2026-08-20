@@ -69,7 +69,7 @@ const Dashboard = () => {
     <MainLayout title="Dashboard">
       <div className="space-y-6">
         <div className="bg-gradient-to-r from-primary to-accent rounded-2xl p-6 text-white shadow-lg">
-          <h2 className="text-2xl font-bold mb-2 text-white">Bem-vindo ao Espaço Terapia</h2>
+          <h2 className="text-2xl font-bold mb-2 text-white">Bem-vindo ao Natielli Paula</h2>
           <p className="text-white/90">
             Gerencie suas operações clínicas de forma eficiente e organizada
           </p>

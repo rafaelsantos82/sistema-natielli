@@ -23,7 +23,7 @@ export const AniversariantesWidget = () => {
 
   const handleEnviarMensagem = (aniversariante: Aniversariante) => {
     const idade = calcularIdade(aniversariante.data_nascimento);
-    const mensagemPadrao = `Olá ${aniversariante.nome}! 🎉\n\nParabéns pelos seus ${idade} anos! Desejamos muita saúde, felicidade e realizações!\n\nEquipe Espaço Terapia`;
+    const mensagemPadrao = `Olá ${aniversariante.nome}! 🎉\n\nParabéns pelos seus ${idade} anos! Desejamos muita saúde, felicidade e realizações!\n\nEquipe Natielli Paula`;
     
     setSelectedAniversariante(aniversariante);
     setMensagem(mensagemPadrao);

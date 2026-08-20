@@ -6,7 +6,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { showErrorToast } from '@/lib/ui/showErrorToast';
-import logo from '@/assets/logo.png';
 
 const RedefinirSenha = () => {
   const [searchParams] = useSearchParams();
@@ -45,9 +44,6 @@ const RedefinirSenha = () => {
   return (
     <div className="min-h-screen flex items-center justify-center p-8 bg-background">
       <div className="w-full max-w-md bg-card rounded-2xl shadow-lg p-8 border border-border">
-        <div className="mb-6 flex justify-center">
-          <img src={logo} alt="Espaço Terapia" className="h-12 w-12 object-contain" />
-        </div>
         <h1 className="text-2xl font-bold text-navy mb-2">Nova senha</h1>
         <p className="text-muted-foreground text-sm mb-6">
           Escolha uma senha segura com pelo menos 8 caracteres.

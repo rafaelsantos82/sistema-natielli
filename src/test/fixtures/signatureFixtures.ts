@@ -77,7 +77,7 @@ export function createTestCertificate(): {
 
   const subject = [
     { name: 'commonName', value: 'Profissional Teste Mock' },
-    { name: 'organizationName', value: 'Espaco Terapia OS' },
+    { name: 'organizationName', value: 'Natielli Paula' },
   ];
   const issuer = [
     { name: 'commonName', value: 'AC Brasil Mock ICP-Brasil' },

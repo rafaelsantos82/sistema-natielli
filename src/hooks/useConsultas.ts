@@ -341,7 +341,6 @@ export const useConsultas = () => {
         if (Notification.permission === 'granted') {
           new Notification('Lembrete de Consulta', {
             body: `Consulta com ${consulta.pacienteNome} em ${notificationSettings.horasAntecedencia}h`,
-            icon: '/logo.png',
           });
         }
       }, notificationTime - now);
