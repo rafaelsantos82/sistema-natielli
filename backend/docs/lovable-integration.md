@@ -115,7 +115,7 @@ unidade-online       → a0000000-0000-4000-8000-000000000006
 
 Duque/Tijuca saíram na `000034`. Slugs antigos ainda existem em `apiIds.ts` só para localStorage/API antiga; não aparecem no seletor.
 
-Implementado em `src/lib/unidades/apiIds.ts`; listagem usa `unidade_id` da unidade ativa (`UnidadeContext`). O item **TODAS** no header é sentinela de UI (`unidade-todas`): não existe no banco nem em `apiIds.ts`. Só a página Pacientes omite `unidade_id` na listagem; cadastro, agenda e salas seguem a última unidade real.
+Implementado em `src/lib/unidades/apiIds.ts`; listagem usa `unidade_id` da unidade ativa (`UnidadeContext`). O item **TODAS** no header é sentinela de UI (`unidade-todas`): não existe no banco nem em `apiIds.ts`. Só a página Pacientes omite `unidade_id` na listagem e pagina com `page`/`page_size=20` via `meta` da API (coluna Unidade visível nesse modo); cadastro, agenda e salas seguem a última unidade real.
 
 ## Checklist OWASP (integração SPA)
 

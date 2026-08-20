@@ -43,6 +43,23 @@ export function resolveUnidadeApiIdFromContext(
   return getUnidadeApiId(slugId);
 }
 
+/** Nomes amigáveis a partir dos UUIDs devolvidos em `pacientes.unidades`. */
+export function formatUnidadeNomes(
+  unidadeIds: string[] | undefined,
+  unidades: { id: string; apiId?: string; nome: string }[],
+): string {
+  if (!unidadeIds?.length) return '—';
+  const names = unidadeIds
+    .map((id) => {
+      const match = unidades.find((u) => u.apiId === id || u.id === id);
+      if (match) return match.nome;
+      const slug = getUnidadeSlugFromApiId(id);
+      return slug ? unidades.find((u) => u.id === slug)?.nome : undefined;
+    })
+    .filter((n): n is string => Boolean(n));
+  return names.length ? [...new Set(names)].join(', ') : '—';
+}
+
 export function buildUnidadeIdsPayload(
   activeSlug: string,
   extraSlugs: string[] = []

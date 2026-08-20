@@ -98,6 +98,99 @@ describe('usePacientesList', () => {
     const params = vi.mocked(listPacientes).mock.calls[0][0] as Record<string, unknown>;
     expect(params.unidade_id).toBeUndefined();
   });
+
+  it('envia page=2 na query da API', async () => {
+    vi.mocked(listPacientes).mockResolvedValue({
+      items: [],
+      meta: { page: 2, page_size: 20, total: 40, total_pages: 2 },
+    });
+
+    const { result } = renderHook(() => usePacientesList('', 2, 20), { wrapper });
+
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+    expect(listPacientes).toHaveBeenCalledWith(
+      expect.objectContaining({ page: 2, page_size: 20 }),
+    );
+  });
+
+  it('não reutiliza cache de outro pageSize', async () => {
+    vi.mocked(listPacientes).mockImplementation(async (params) => ({
+      items:
+        params.page_size === 20
+          ? [
+              {
+                id: 'p-20',
+                nome_completo: 'Um',
+                data_nascimento: '2015-01-01',
+                sexo_biologico: 'masculino',
+                tel_principal: '11999999999',
+                uf: 'SP',
+                cep: '01310100',
+                responsavel_nome: 'Resp',
+                consentimento_lgpd: true,
+                status: 'ativo',
+                created_at: '2024-01-01T00:00:00Z',
+                updated_at: '2024-01-01T00:00:00Z',
+              },
+            ]
+          : [
+              {
+                id: 'p-100-a',
+                nome_completo: 'A',
+                data_nascimento: '2015-01-01',
+                sexo_biologico: 'masculino',
+                tel_principal: '11999999999',
+                uf: 'SP',
+                cep: '01310100',
+                responsavel_nome: 'Resp',
+                consentimento_lgpd: true,
+                status: 'ativo',
+                created_at: '2024-01-01T00:00:00Z',
+                updated_at: '2024-01-01T00:00:00Z',
+              },
+              {
+                id: 'p-100-b',
+                nome_completo: 'B',
+                data_nascimento: '2015-01-01',
+                sexo_biologico: 'masculino',
+                tel_principal: '11999999999',
+                uf: 'SP',
+                cep: '01310100',
+                responsavel_nome: 'Resp',
+                consentimento_lgpd: true,
+                status: 'ativo',
+                created_at: '2024-01-01T00:00:00Z',
+                updated_at: '2024-01-01T00:00:00Z',
+              },
+            ],
+      meta: {
+        page: 1,
+        page_size: params.page_size ?? 20,
+        total: 2,
+        total_pages: 1,
+      },
+    }));
+
+    const client = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    });
+    const shared = ({ children }: { children: ReactNode }) => (
+      <QueryClientProvider client={client}>{children}</QueryClientProvider>
+    );
+
+    const { result: r20 } = renderHook(() => usePacientesList('', 1, 20), { wrapper: shared });
+    const { result: r100 } = renderHook(() => usePacientesList('', 1, 100), {
+      wrapper: shared,
+    });
+
+    await waitFor(() => {
+      expect(r20.current.isSuccess).toBe(true);
+      expect(r100.current.isSuccess).toBe(true);
+    });
+    expect(r20.current.data?.rows).toHaveLength(1);
+    expect(r100.current.data?.rows).toHaveLength(2);
+    expect(listPacientes).toHaveBeenCalledTimes(2);
+  });
 });
 
 describe('usePacienteMutations delete', () => {

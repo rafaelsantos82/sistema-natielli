@@ -3,6 +3,7 @@ import {
   getUnidadeApiId,
   buildUnidadeIdsPayload,
   resolveUnidadeApiIdFromContext,
+  formatUnidadeNomes,
 } from '@/lib/unidades/apiIds';
 
 describe('apiIds', () => {
@@ -27,5 +28,16 @@ describe('apiIds', () => {
     expect(resolveUnidadeApiIdFromContext('unidade-duque-caxias', null)).toBe(
       'a0000000-0000-4000-8000-000000000001',
     );
+  });
+
+  it('resolve nomes de unidade a partir do UUID da API', () => {
+    const unidades = [
+      { id: 'unidade-catanduva', apiId: 'a0000000-0000-4000-8000-000000000003', nome: 'Catanduva' },
+      { id: 'unidade-londrina', apiId: 'a0000000-0000-4000-8000-000000000004', nome: 'Londrina' },
+    ];
+    expect(
+      formatUnidadeNomes(['a0000000-0000-4000-8000-000000000004'], unidades),
+    ).toBe('Londrina');
+    expect(formatUnidadeNomes([], unidades)).toBe('—');
   });
 });

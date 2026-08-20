@@ -37,6 +37,8 @@ export interface PacienteListRow {
   proximaConsulta?: string;
   ultimaConsulta?: string;
   totalConsultas?: number;
+  /** UUIDs das unidades ativas (principal primeiro). */
+  unidadeIds?: string[];
 }
 
 export type PacientesListCache = {
@@ -59,7 +61,7 @@ export function usePacientesList(
   const todasUnidades = Boolean(opts?.todasUnidades);
 
   return useQuery({
-    queryKey: ['pacientes', todasUnidades ? 'all' : unidadeAtivaId, search, page],
+    queryKey: ['pacientes', todasUnidades ? 'all' : unidadeAtivaId, search, page, pageSize],
     enabled: featureFlags.pacientesApiEnabled && (todasUnidades || !!unidadeApiId),
     queryFn: async () => {
       if (!todasUnidades && !unidadeApiId) {

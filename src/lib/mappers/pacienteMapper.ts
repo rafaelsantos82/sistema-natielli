@@ -149,6 +149,10 @@ function formatDateTimeBr(iso?: string): string | undefined {
 
 export function dtoToListRow(dto: PacienteDTO) {
   const excluido = Boolean(dto.deleted_at);
+  const unidadeIds = (dto.unidades ?? [])
+    .filter((u) => u.ativo !== false)
+    .sort((a, b) => Number(b.principal) - Number(a.principal))
+    .map((u) => u.unidade_id);
   return {
     id: dto.id,
     nome: dto.nome_completo,
@@ -162,6 +166,7 @@ export function dtoToListRow(dto: PacienteDTO) {
     proximaConsulta: formatDateTimeBr(dto.proxima_consulta_em),
     ultimaConsulta: formatDateTimeBr(dto.ultima_consulta_em),
     totalConsultas: dto.total_consultas,
+    unidadeIds,
   };
 }
 

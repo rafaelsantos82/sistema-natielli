@@ -66,11 +66,11 @@ export const Header = ({ title }: HeaderProps) => {
         <div className="flex items-center gap-2">
           {/* Seletor de Unidade */}
           {unidades.length > 0 && (
-            <div className="hidden md:flex items-center gap-2 mr-2">
-              <Building2 className="h-4 w-4 text-muted-foreground" />
+            <div className="flex items-center gap-2 mr-2">
+              <Building2 className="hidden h-4 w-4 text-muted-foreground sm:block" />
               {podeTrocarUnidade ? (
                 <Select value={seletorUnidadeId} onValueChange={setUnidadeAtiva}>
-                  <SelectTrigger className="h-9 w-[180px]" aria-label="Unidade">
+                  <SelectTrigger className="h-9 w-[140px] sm:w-[180px]" aria-label="Unidade">
                     <SelectValue placeholder="Unidade" />
                   </SelectTrigger>
                   <SelectContent>

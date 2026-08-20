@@ -1,8 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { AlertCircle, UserPlus } from 'lucide-react';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { PageToolbar } from '@/components/common/PageToolbar';
 import { DataTable, DataTableColumn } from '@/components/common/DataTable';
+import { ListPagination } from '@/components/common/ListPagination';
 import { FormModal } from '@/components/common/FormModal';
 import { ConfirmDialog } from '@/components/common/ConfirmDialog';
 import { Badge } from '@/components/ui/badge';
@@ -26,6 +27,9 @@ import { dtoToForm } from '@/lib/mappers/pacienteMapper';
 import { toast } from 'sonner';
 import { showErrorToast } from '@/lib/ui/showErrorToast';
 import { PacienteViewModal } from '@/components/pacientes/PacienteViewModal';
+import { formatUnidadeNomes } from '@/lib/unidades/apiIds';
+
+const PAGE_SIZE = 20;
 
 const Pacientes = () => {
   const navigate = useNavigate();
@@ -41,9 +45,16 @@ const Pacientes = () => {
   const [selectedItem, setSelectedItem] = useState<PacienteListRow | null>(null);
   const [viewItem, setViewItem] = useState<PacienteListRow | null>(null);
   const [isViewOpen, setIsViewOpen] = useState(false);
+  const [page, setPage] = useState(1);
 
-  const { isTodasUnidades, unidadeAtiva } = useUnidadeAtiva();
-  const { data, isLoading, isError, error } = usePacientesList(searchQuery, 1, 20, {
+  const { isTodasUnidades, unidadeAtiva, unidadeAtivaId: unidadeFiltroId, unidades } =
+    useUnidadeAtiva();
+
+  useEffect(() => {
+    setPage(1);
+  }, [searchQuery, isTodasUnidades, unidadeFiltroId]);
+
+  const { data, isLoading, isError, error } = usePacientesList(searchQuery, page, PAGE_SIZE, {
     todasUnidades: isTodasUnidades,
   });
   const editingPacienteId = useMemo(() => {
@@ -60,6 +71,12 @@ const Pacientes = () => {
   const { createMutation, updateMutation, deleteMutation, restoreMutation, unidadeAtivaId } =
     usePacienteMutations();
 
+  const meta = data?.meta;
+  const total = meta?.total ?? 0;
+  const pageSize = meta?.page_size ?? PAGE_SIZE;
+  const totalPages = meta?.total_pages ?? 0;
+  const from = total === 0 ? 0 : (page - 1) * pageSize + 1;
+  const to = Math.min(page * pageSize, total);
   const pacientes = data?.rows ?? [];
   const pageTitle = isTodasUnidades
     ? 'Pacientes — Todas as unidades'
@@ -73,6 +90,15 @@ const Pacientes = () => {
 
   const columns: DataTableColumn<PacienteListRow>[] = [
     { key: 'nome', label: 'Nome' },
+    ...(isTodasUnidades
+      ? [
+          {
+            key: 'unidade',
+            label: 'Unidade',
+            render: (item: PacienteListRow) => formatUnidadeNomes(item.unidadeIds, unidades),
+          },
+        ]
+      : []),
     { key: 'cpf', label: 'CPF' },
     ...(isTerapeuta
       ? [
@@ -265,6 +291,12 @@ const Pacientes = () => {
           <p className="text-sm text-muted-foreground">Carregando pacientes...</p>
         )}
 
+        {!isLoading && total > 0 && (
+          <p className="text-sm text-muted-foreground">
+            Mostrando {from}–{to} de {total} pacientes
+          </p>
+        )}
+
         <DataTable
           columns={columns}
           data={pacientes}
@@ -275,6 +307,8 @@ const Pacientes = () => {
           isRowInactive={(item) => Boolean(item.excluido)}
           emptyMessage="Nenhum paciente encontrado"
         />
+
+        <ListPagination page={page} totalPages={totalPages} onPageChange={setPage} />
 
         <FormModal
           title={

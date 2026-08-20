@@ -34,4 +34,16 @@ describe('dtoToListRow', () => {
     expect(row.excluido).toBe(false);
     expect(row.status).toBe('ativo');
   });
+
+  it('mapeia unidadeIds ativas com a principal primeiro', () => {
+    const row = dtoToListRow({
+      ...baseDto,
+      unidades: [
+        { unidade_id: 'u-londrina', principal: false, ativo: true },
+        { unidade_id: 'u-catanduva', principal: true, ativo: true },
+        { unidade_id: 'u-offline', principal: false, ativo: false },
+      ],
+    });
+    expect(row.unidadeIds).toEqual(['u-catanduva', 'u-londrina']);
+  });
 });
