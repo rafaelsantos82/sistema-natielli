@@ -11,17 +11,17 @@ func validPaciente() *Paciente {
 	cpf := "52998224725"
 	respCPF := "11144477735"
 	return &Paciente{
-		NomeCompleto:   "Maria Silva",
-		DataNascimento: time.Now().AddDate(-10, 0, 0),
-		SexoBiologico:  SexoFeminino,
-		CPF:            &cpf,
-		TelPrincipal:   "21999999999",
-		UF:             "RJ",
-		CEP:            "20000000",
-		ResponsavelNome: "João Silva",
-		ResponsavelCPF: &respCPF,
+		NomeCompleto:      "Maria Silva",
+		DataNascimento:    time.Now().AddDate(-10, 0, 0),
+		SexoBiologico:     SexoFeminino,
+		CPF:               &cpf,
+		TelPrincipal:      "21999999999",
+		UF:                "RJ",
+		CEP:               "20000000",
+		ResponsavelNome:   "João Silva",
+		ResponsavelCPF:    &respCPF,
 		ConsentimentoLGPD: true,
-		Status:         PacienteAtivo,
+		Status:            PacienteAtivo,
 		Unidades: []PacienteUnidadeLink{
 			{UnidadeID: uuid.New(), Principal: true, Ativo: true},
 		},
@@ -36,11 +36,28 @@ func TestPacienteValidate_LGPDRequiredOnCreate(t *testing.T) {
 	}
 }
 
-func TestPacienteValidate_IdadeMaxima(t *testing.T) {
+func TestPacienteValidate_AdultoPermitido(t *testing.T) {
 	p := validPaciente()
 	p.DataNascimento = time.Now().AddDate(-30, 0, 0)
-	if err := p.Validate(false); err == nil {
-		t.Fatal("expected age validation error")
+	if err := p.Validate(false); err != nil {
+		t.Fatalf("adult patient should be valid: %v", err)
+	}
+}
+
+func TestPacienteValidate_SexoNaoInformado(t *testing.T) {
+	p := validPaciente()
+	p.SexoBiologico = SexoNaoInformado
+	if err := p.Validate(false); err != nil {
+		t.Fatalf("nao_informado should be valid: %v", err)
+	}
+}
+
+func TestPacienteValidate_ImportSemCPF(t *testing.T) {
+	p := validPaciente()
+	p.CPF = nil
+	p.ResponsavelCPF = nil
+	if err := p.ValidateOpts(ValidateOpts{AllowEmptyCPF: true}); err != nil {
+		t.Fatalf("import without CPF should be valid: %v", err)
 	}
 }
 

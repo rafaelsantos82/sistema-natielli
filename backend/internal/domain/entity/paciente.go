@@ -5,16 +5,17 @@ import (
 	"time"
 	"unicode"
 
-	"github.com/google/uuid"
 	domainerrors "espaco-terapia-os/backend/internal/domain/errors"
+	"github.com/google/uuid"
 )
 
 type SexoBiologico string
 
 const (
-	SexoMasculino  SexoBiologico = "masculino"
-	SexoFeminino   SexoBiologico = "feminino"
-	SexoIntersexo  SexoBiologico = "intersexo"
+	SexoMasculino    SexoBiologico = "masculino"
+	SexoFeminino     SexoBiologico = "feminino"
+	SexoIntersexo    SexoBiologico = "intersexo"
+	SexoNaoInformado SexoBiologico = "nao_informado"
 )
 
 type PacienteStatus string
@@ -31,9 +32,9 @@ type Vacina struct {
 }
 
 type DocumentoAnexo struct {
-	Tipo        string  `json:"tipo"`
-	Arquivo     string  `json:"arquivo"`
-	Descricao   *string `json:"descricao,omitempty"`
+	Tipo      string  `json:"tipo"`
+	Arquivo   string  `json:"arquivo"`
+	Descricao *string `json:"descricao,omitempty"`
 }
 
 type PacienteUnidadeLink struct {
@@ -108,7 +109,25 @@ type Paciente struct {
 	DeletedAt               *time.Time
 }
 
+type ValidateOpts struct {
+	RequireLGPD   bool
+	AllowEmptyCPF bool
+}
+
+func validSexo(s SexoBiologico) bool {
+	switch s {
+	case SexoMasculino, SexoFeminino, SexoIntersexo, SexoNaoInformado:
+		return true
+	default:
+		return false
+	}
+}
+
 func (p *Paciente) Validate(requireLGPD bool) error {
+	return p.ValidateOpts(ValidateOpts{RequireLGPD: requireLGPD})
+}
+
+func (p *Paciente) ValidateOpts(opts ValidateOpts) error {
 	if strings.TrimSpace(p.NomeCompleto) == "" {
 		return domainerrors.NewRequiredFieldError("nome_completo")
 	}
@@ -119,11 +138,7 @@ func (p *Paciente) Validate(requireLGPD bool) error {
 	if p.DataNascimento.After(now) {
 		return domainerrors.NewInvalidFormatError("data_nascimento", "Data de nascimento não pode ser futura")
 	}
-	minDate := now.AddDate(-25, 0, 0)
-	if p.DataNascimento.Before(minDate) {
-		return domainerrors.NewInvalidFormatError("data_nascimento", "Paciente deve ter no máximo 25 anos (clínica pediátrica)")
-	}
-	if p.SexoBiologico != SexoMasculino && p.SexoBiologico != SexoFeminino && p.SexoBiologico != SexoIntersexo {
+	if !validSexo(p.SexoBiologico) {
 		return domainerrors.NewInvalidFormatError("sexo_biologico", "Sexo biológico inválido")
 	}
 	if p.CPF != nil && *p.CPF != "" {
@@ -143,15 +158,17 @@ func (p *Paciente) Validate(requireLGPD bool) error {
 	if strings.TrimSpace(p.ResponsavelNome) == "" {
 		return domainerrors.NewRequiredFieldError("responsavel_nome")
 	}
-	cpfEmpty := p.CPF == nil || strings.TrimSpace(*p.CPF) == ""
-	respCPFEmpty := p.ResponsavelCPF == nil || strings.TrimSpace(*p.ResponsavelCPF) == ""
-	if cpfEmpty && respCPFEmpty {
-		return domainerrors.NewValidationError("Informe CPF do paciente ou CPF do responsável legal")
+	if !opts.AllowEmptyCPF {
+		cpfEmpty := p.CPF == nil || strings.TrimSpace(*p.CPF) == ""
+		respCPFEmpty := p.ResponsavelCPF == nil || strings.TrimSpace(*p.ResponsavelCPF) == ""
+		if cpfEmpty && respCPFEmpty {
+			return domainerrors.NewValidationError("Informe CPF do paciente ou CPF do responsável legal")
+		}
 	}
 	if p.ResponsavelCPF != nil && *p.ResponsavelCPF != "" && !isValidCPFDigits(*p.ResponsavelCPF) {
 		return domainerrors.NewInvalidFormatError("responsavel_cpf", "CPF do responsável inválido")
 	}
-	if requireLGPD && !p.ConsentimentoLGPD {
+	if opts.RequireLGPD && !p.ConsentimentoLGPD {
 		return domainerrors.NewValidationError("Consentimento LGPD é obrigatório")
 	}
 	if p.SonoHoras != nil && (*p.SonoHoras < 0 || *p.SonoHoras > 24) {

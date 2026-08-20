@@ -24,7 +24,8 @@ backend/.env
 backend/.env.local
 /deploy.env
 **/deploy.env.local
-**/secrets/
+backend/data/imports/*
+!backend/data/imports/.gitkeep
 
 # Manual técnico — artefatos de build
 docs/.manual-build/

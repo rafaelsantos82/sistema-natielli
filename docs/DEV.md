@@ -302,6 +302,7 @@ curl -s -H "Authorization: Bearer $TOKEN" http://localhost:8080/api/v1/profissio
 ```bash
 cd backend && make up && make migrate-up
 # Opcional se login real (VITE_AUTH_BOOTSTRAP=false): make seed-admin
+# Import de clientes (planilhas): docs/SEED-PACIENTES.md
 npm run test:e2e -- e2e/agenda-sync.spec.ts --project=agenda-sync
 ```
 

@@ -13,6 +13,7 @@ const SEXO_LABELS: Record<string, string> = {
   masculino: 'Masculino',
   feminino: 'Feminino',
   intersexo: 'Intersexo',
+  nao_informado: 'Não informado',
 };
 
 const STATUS_LABELS: Record<string, string> = {

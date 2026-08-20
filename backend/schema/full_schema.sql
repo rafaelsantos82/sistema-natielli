@@ -21,7 +21,7 @@ CREATE TYPE user_role          AS ENUM ('admin','gestor','funcionario','terceiro
 CREATE TYPE unidade_status     AS ENUM ('ativa','inativa');
 
 -- Pessoas
-CREATE TYPE sexo_biologico     AS ENUM ('masculino','feminino','intersexo');
+CREATE TYPE sexo_biologico     AS ENUM ('masculino','feminino','intersexo','nao_informado');
 CREATE TYPE tipo_sanguineo     AS ENUM ('A+','A-','B+','B-','AB+','AB-','O+','O-','Desconhecido');
 CREATE TYPE paciente_status    AS ENUM ('ativo','inativo','falecido');
 CREATE TYPE profissional_status AS ENUM ('ativo','inativo','suspenso');
@@ -227,7 +227,6 @@ CREATE TABLE pacientes (
 
   CONSTRAINT ck_paciente_data_nascimento CHECK (
     data_nascimento <= CURRENT_DATE
-    AND data_nascimento >= CURRENT_DATE - INTERVAL '25 years'
   )
 );
 CREATE TRIGGER trg_pacientes_updated BEFORE UPDATE ON pacientes

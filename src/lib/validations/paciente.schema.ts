@@ -46,7 +46,7 @@ export const pacienteSchema = z
     nome_completo: z.string().min(3, 'Nome completo é obrigatório'),
     nome_social: z.string().optional(),
     data_nascimento: z.string().min(1, 'Data de nascimento é obrigatória'),
-    sexo_biologico: z.enum(['masculino', 'feminino', 'intersexo'], {
+    sexo_biologico: z.enum(['masculino', 'feminino', 'intersexo', 'nao_informado'], {
       required_error: 'Sexo biológico é obrigatório',
     }),
     cpf: optionalCpf,
@@ -117,15 +117,6 @@ export const pacienteSchema = z
     }
     if (data.data_nascimento) {
       const birth = new Date(data.data_nascimento);
-      const min = new Date();
-      min.setFullYear(min.getFullYear() - 25);
-      if (birth < min) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: 'Paciente deve ter no máximo 25 anos',
-          path: ['data_nascimento'],
-        });
-      }
       if (birth > new Date()) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,

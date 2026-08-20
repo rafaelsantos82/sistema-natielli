@@ -86,6 +86,7 @@ export const PacienteQuickForm = ({ initialData, onSubmit, isLoading }: Paciente
                 <SelectItem value="masculino">Masculino</SelectItem>
                 <SelectItem value="feminino">Feminino</SelectItem>
                 <SelectItem value="intersexo">Intersexo</SelectItem>
+                <SelectItem value="nao_informado">Não informado</SelectItem>
               </SelectContent>
             </Select>
             {errors.sexo_biologico && (

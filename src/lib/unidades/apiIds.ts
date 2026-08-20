@@ -5,6 +5,10 @@
 export const UNIDADE_API_IDS: Record<string, string> = {
   'unidade-duque-caxias': 'a0000000-0000-4000-8000-000000000001',
   'unidade-tijuca': 'a0000000-0000-4000-8000-000000000002',
+  'unidade-catanduva': 'a0000000-0000-4000-8000-000000000003',
+  'unidade-londrina': 'a0000000-0000-4000-8000-000000000004',
+  'unidade-sertanopolis': 'a0000000-0000-4000-8000-000000000005',
+  'unidade-online': 'a0000000-0000-4000-8000-000000000006',
 };
 
 export function getUnidadeSlugFromApiId(uuid: string): string | null {

@@ -1,6 +1,6 @@
 SHELL := /bin/sh
 
-.PHONY: run test vet up down logs migrate-up migrate-down swagger verify-routes seed-admin seed-anamneses extract-anamneses
+.PHONY: run test vet up down logs migrate-up migrate-down swagger verify-routes seed-admin seed-anamneses extract-anamneses seed-pacientes seed-pacientes-pendencias
 
 run:
 	go run ./cmd/api
@@ -61,3 +61,23 @@ seed-anamneses:
 
 seed-anamneses-dry-run:
 	@$(MAKE) seed-anamneses ARGS="--dry-run"
+
+# seed-pacientes: importa cadastro das planilhas e emite JSON de pendências comerciais.
+# Ex.: make seed-pacientes ARGS='--dry-run --xlsx=/tmp/a.xlsx --xlsx=/tmp/b.xlsx'
+seed-pacientes:
+	@test -f .env && set -a && . ./.env && set +a; \
+	if [ -n "$${DATABASE_URL_HOST:-}" ]; then \
+		export DATABASE_URL="$$DATABASE_URL_HOST"; \
+	elif [ -n "$${DATABASE_URL:-}" ]; then \
+		export DATABASE_URL=$$(printf '%s' "$$DATABASE_URL" | sed -e 's/@db:/@127.0.0.1:/' -e 's/host=db/host=127.0.0.1/'); \
+	fi; \
+	go run ./cmd/seed-pacientes $(ARGS)
+
+seed-pacientes-pendencias:
+	@test -f .env && set -a && . ./.env && set +a; \
+	if [ -n "$${DATABASE_URL_HOST:-}" ]; then \
+		export DATABASE_URL="$$DATABASE_URL_HOST"; \
+	elif [ -n "$${DATABASE_URL:-}" ]; then \
+		export DATABASE_URL=$$(printf '%s' "$$DATABASE_URL" | sed -e 's/@db:/@127.0.0.1:/' -e 's/host=db/host=127.0.0.1/'); \
+	fi; \
+	go run ./cmd/seed-pacientes-pendencias $(ARGS)

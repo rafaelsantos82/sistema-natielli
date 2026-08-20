@@ -197,6 +197,20 @@ Resposta deve listar 19 salas (SALA 01 … ABA GRUPO 19). O `down` da migration 
 | `deploy/scripts/backup-db.sh` | Droplet | `pg_dump` gzip |
 | `deploy/scripts/fix-uploads-permissions.sh` | Droplet | `chown` **somente** de `natielli-prod_uploads_data` |
 | `deploy/scripts/seed-anamneses.sh` | Mac | Build + seed templates de anamnese em produção |
+| `deploy/scripts/seed-pacientes.sh` | Mac | Import cadastro das planilhas (backup no apply; PII só em `/tmp`) |
+| `deploy/scripts/seed-pacientes-pendencias.sh` | Mac | Dry-run do JSON comercial (apply bloqueado até schema) |
+
+## Seed de pacientes (planilhas)
+
+Cadastro agora; plano/check-in/etiqueta só no JSON. Detalhes: [`SEED-PACIENTES.md`](SEED-PACIENTES.md).
+
+```bash
+./deploy/scripts/seed-pacientes.sh --dry-run -- ~/Downloads/clientes_22_07_2026.xlsx ~/Downloads/clientes_Natielli.xlsx
+./deploy/scripts/seed-pacientes.sh --apply -- ~/Downloads/clientes_22_07_2026.xlsx ~/Downloads/clientes_Natielli.xlsx
+./deploy/scripts/seed-pacientes-pendencias.sh --dry-run
+```
+
+Migration `000033` precisa estar no ar antes (teto de 25 anos removido + unidades Natielli).
 
 ## Seed de anamneses (produção)
 

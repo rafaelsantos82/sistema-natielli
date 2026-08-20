@@ -4,7 +4,7 @@
 
 - **SGBD:** PostgreSQL 16 (Docker)
 - **Extensão:** `pgcrypto` (UUID)
-- **Migrations:** 32 versões (`000001`–`000032`)
+- **Migrations:** 33 versões (`000001`–`000033`)
 - **ORM:** GORM com modelos em `infrastructure/database/*_model.go`
 
 ## 2. Convenções de schema
@@ -101,6 +101,7 @@ erDiagram
 | 000029 | chaves digitais |
 | 000030–000031 | contratos evolution/arquivo |
 | 000032 | conciliação NF |
+| 000033 | idade sem teto 25 anos, sexo `nao_informado`, unidades Catanduva/Londrina/Sertanópolis/Online |
 
 ## 8. Operações
 

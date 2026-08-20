@@ -41,6 +41,42 @@ const SEED: Unidade[] = [
     createdAt: new Date(0).toISOString(),
     updatedAt: new Date(0).toISOString(),
   },
+  {
+    id: 'unidade-catanduva',
+    apiId: 'a0000000-0000-4000-8000-000000000003',
+    nome: 'Catanduva',
+    slug: 'catanduva',
+    status: 'ativa',
+    createdAt: new Date(0).toISOString(),
+    updatedAt: new Date(0).toISOString(),
+  },
+  {
+    id: 'unidade-londrina',
+    apiId: 'a0000000-0000-4000-8000-000000000004',
+    nome: 'Londrina',
+    slug: 'londrina',
+    status: 'ativa',
+    createdAt: new Date(0).toISOString(),
+    updatedAt: new Date(0).toISOString(),
+  },
+  {
+    id: 'unidade-sertanopolis',
+    apiId: 'a0000000-0000-4000-8000-000000000005',
+    nome: 'Sertanópolis',
+    slug: 'sertanopolis',
+    status: 'ativa',
+    createdAt: new Date(0).toISOString(),
+    updatedAt: new Date(0).toISOString(),
+  },
+  {
+    id: 'unidade-online',
+    apiId: 'a0000000-0000-4000-8000-000000000006',
+    nome: 'Online',
+    slug: 'online',
+    status: 'ativa',
+    createdAt: new Date(0).toISOString(),
+    updatedAt: new Date(0).toISOString(),
+  },
 ];
 
 const readStored = (): Unidade[] => {

@@ -6,9 +6,12 @@ import {
 } from '@/lib/unidades/apiIds';
 
 describe('apiIds', () => {
-  it('maps slug to UUID', () => {
-    expect(getUnidadeApiId('unidade-duque-caxias')).toBe(
-      'a0000000-0000-4000-8000-000000000001'
+  it('maps Natielli unit slugs to UUID', () => {
+    expect(getUnidadeApiId('unidade-catanduva')).toBe(
+      'a0000000-0000-4000-8000-000000000003'
+    );
+    expect(getUnidadeApiId('unidade-online')).toBe(
+      'a0000000-0000-4000-8000-000000000006'
     );
   });
 
