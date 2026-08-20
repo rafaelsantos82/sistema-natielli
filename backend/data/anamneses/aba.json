@@ -1,0 +1,138 @@
+{
+  "slug": "aba",
+  "meta": {
+    "source_file": "backend/docs/anamnese/Anamnese-ABA.docx",
+    "extracted_at": "2026-05-27T11:57:47Z",
+    "extractor_version": "1",
+    "review_status": "draft"
+  },
+  "anamnese": {
+    "nome": "Anamnese ABA",
+    "especialidade": "TEA/Autismo",
+    "versao": "2024.1",
+    "status": "Ativa",
+    "observacoes": "Origem: Anamnese-ABA.docx"
+  },
+  "questionnaire": [
+    {
+      "linkId": "anamnese_aba_nome_da_criança_data_de_nascimento_idade_responsáveis",
+      "text": "Nome da criança: Data de nascimento / idade: Responsáveis: Configuração familiar (guarda, irmãos, etc.): Escola atual/ série:",
+      "type": "text"
+    },
+    {
+      "linkId": "anamnese_aba_queixa_principal",
+      "text": "Queixa principal",
+      "type": "text"
+    },
+    {
+      "linkId": "anamnese_aba_motivo_da_busca_por_atendimento_principais_dificuldades",
+      "text": "Motivo da busca por atendimento: Principais dificuldades relatadas: Expectativas da família:",
+      "type": "text"
+    },
+    {
+      "linkId": "anamnese_aba_histórico",
+      "text": "Histórico",
+      "type": "text"
+    },
+    {
+      "linkId": "anamnese_aba_do_desenvolvimentodesenvolvimento_inicialidade_de_aquis",
+      "text": "do desenvolvimentoDesenvolvimento inicialIdade de aquisição de:Balbucio: Primeiras palavras: Andar: Houve perda de habilidades?",
+      "type": "text"
+    },
+    {
+      "linkId": "anamnese_aba_não",
+      "text": "( ) Não",
+      "type": "text"
+    },
+    {
+      "linkId": "anamnese_aba_se_sim_quais_e_quando_linguagem_inicialtipo_de_comunica",
+      "text": "Se sim, quais e quando: Linguagem inicialTipo de comunicação inicial: Uso funcional da linguagem: Presença de:",
+      "type": "text"
+    },
+    {
+      "linkId": "anamnese_aba_ecolalia",
+      "text": "( ) ecolalia",
+      "type": "text"
+    },
+    {
+      "linkId": "anamnese_aba_repetição",
+      "text": "( ) repetição",
+      "type": "text"
+    },
+    {
+      "linkId": "anamnese_aba_fala_contextualizada_interação_social_inicialcontato",
+      "text": "( ) fala contextualizada Interação social inicialContato visual: Resposta ao nome: Interesse por pessoas: Brincadeiras sociais: Diagnóstico e acompanhamento médicoDiagnósticos: Idade do diagnóstico: Profissionais que acompanham:",
+      "type": "text"
+    },
+    {
+      "linkId": "anamnese_aba_neuropediatra",
+      "text": "( ) neuropediatra",
+      "type": "text"
+    },
+    {
+      "linkId": "anamnese_aba_psiquiatra",
+      "text": "( ) psiquiatra",
+      "type": "text"
+    },
+    {
+      "linkId": "anamnese_aba_outros_uso_de_medicaçãomedicações_atuais_objetivo_d",
+      "text": "( ) outros Uso de medicaçãoMedicações atuais: Objetivo do uso:",
+      "type": "text"
+    },
+    {
+      "linkId": "anamnese_aba_histórico_6264c22d",
+      "text": "Histórico",
+      "type": "text"
+    },
+    {
+      "linkId": "anamnese_aba_de_medicações_anteriores_efeitos_observados_positivos",
+      "text": "de medicações anteriores: Efeitos observados:positivos: negativos: Está em ajuste medicamentoso?",
+      "type": "text"
+    },
+    {
+      "linkId": "anamnese_aba_nãointervenções_terapêuticasidade_de_início_das_in",
+      "text": "( ) NãoIntervenções terapêuticasIdade de início das intervenções: Tipos de terapia já realizadas: Tempo de acompanhamento: Resposta ao tratamento: Houve regressão?",
+      "type": "text"
+    },
+    {
+      "linkId": "anamnese_aba_descrever_escolarizaçãoidade_de_ingresso_escolar",
+      "text": "Descrever: EscolarizaçãoIdade de ingresso escolar:",
+      "type": "text"
+    },
+    {
+      "linkId": "anamnese_aba_histórico_ab7211db",
+      "text": "Histórico",
+      "type": "text"
+    },
+    {
+      "linkId": "anamnese_aba_de_mudanças_de_escola_adaptação_escolar_dificuldades",
+      "text": "de mudanças de escola: Adaptação escolar: Dificuldades atuais:( ) atenção( ) comportamento( ) aprendizado Habilidades acadêmicas:leitura:escrita:matemática Comunicação atualForma principal de comunicação:( ) verbal( ) gestual( ) comunicação alternativa Expressa:( ) necessidades básicas( ) ideias complexas Estrutura de frases: Frustração na comunicação?",
+      "type": "boolean"
+    },
+    {
+      "linkId": "anamnese_aba_como_ocorre_comportamento_e_regulação_emocionalreaç\ufffd",
+      "text": "Como ocorre: Comportamento e regulação emocionalReação à frustração: Comportamentos desafiadores:topografia:frequência:intensidade:Tempo de recuperação: Situações que evocam: Padrões comportamentaisPresença de:( ) estereotipias motoras( ) estereotipias vocais( ) comportamentos repetitivosDescrever:SonoHorário de dormir: Horário de acordar: Desperta à noite?",
+      "type": "boolean"
+    },
+    {
+      "linkId": "anamnese_aba_dorme_sozinho",
+      "text": "Dorme sozinho?",
+      "type": "text"
+    },
+    {
+      "linkId": "anamnese_aba_uso_de_telas_antes_de_dormir_alimentaçãopadrão_alime",
+      "text": "Uso de telas antes de dormir: AlimentaçãoPadrão alimentar: Seletividade: Alimentos aceitos: Alimentos recusados: Mudanças ao longo do tempo: Independência na alimentação: Preferências e interessesAtividades preferidas: Brincadeiras:( ) simbólicas( ) sensoriais( ) motorasInteresse por tecnologia:Sensibilidade sensorialEvitação sensorial: Busca Sensorial (som, toque, movimento, etc.): Rotina e ambienteEstrutura da rotina: Mudanças recentes: Regras e limites: Observações relevantesEventos importantes (mudanças, perdas, pandemia, etc.): Outros pontos clínicos relevantes:",
+      "type": "choice",
+      "options": [
+        {
+          "value": "simbólicas",
+          "label": ") simbólicas"
+        },
+        {
+          "value": "sensoriais",
+          "label": ") sensoriais"
+        }
+      ]
+    }
+  ]
+}

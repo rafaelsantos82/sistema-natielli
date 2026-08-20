@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS materiais_marketing CASCADE;
+DROP TABLE IF EXISTS manuais CASCADE;

@@ -1,0 +1,77 @@
+# Host nginx — rendered to /etc/nginx/sites-available/${DEPLOY_DOMAIN}
+# envsubst: DEPLOY_DOMAIN PROD_API_HOST_PORT PROD_FRONTEND_HOST_PORT
+# Loopback ports MUST NOT use 8080-8083 (Espaço Terapia / QR Gestor).
+
+upstream natielli_api {
+    server 127.0.0.1:${PROD_API_HOST_PORT} max_fails=3 fail_timeout=30s;
+}
+
+upstream natielli_frontend {
+    server 127.0.0.1:${PROD_FRONTEND_HOST_PORT} max_fails=3 fail_timeout=30s;
+}
+
+limit_req_zone $binary_remote_addr zone=natielli_auth:10m rate=10r/m;
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name ${DEPLOY_DOMAIN};
+
+    server_tokens off;
+    client_max_body_size 10M;
+    client_body_timeout 60s;
+    client_header_timeout 60s;
+
+    add_header X-Frame-Options "DENY" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+
+    location /health {
+        access_log off;
+        return 200 "healthy\n";
+        add_header Content-Type text/plain;
+    }
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/html;
+    }
+
+    location /api/v1/auth/ {
+        limit_req zone=natielli_auth burst=5 nodelay;
+        proxy_pass http://natielli_api;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_connect_timeout 30s;
+        proxy_send_timeout 60s;
+        proxy_read_timeout 60s;
+    }
+
+    location /api/v1/ {
+        proxy_pass http://natielli_api;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_connect_timeout 30s;
+        proxy_send_timeout 60s;
+        proxy_read_timeout 60s;
+    }
+
+    location / {
+        proxy_pass http://natielli_frontend;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location ~ /\.(env|git) {
+        deny all;
+        return 404;
+    }
+}

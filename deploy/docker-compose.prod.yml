@@ -1,0 +1,146 @@
+# PRODUCTION ONLY — run on Ubuntu droplet from /opt/sistemanatielli.
+# Shared VM pstec: Espaço Terapia 8080/8081, QR Gestor 8082/8083. Do not reuse those ports.
+# Dev on macOS: backend/docker-compose.yml
+
+name: natielli-prod
+
+services:
+  api:
+    image: ${IMAGE_API:-natielli/api}:${IMAGE_TAG:-latest}
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    env_file:
+      - /etc/sistemanatielli/app.env
+    ports:
+      - "127.0.0.1:${PROD_API_HOST_PORT:-8084}:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    read_only: true
+    pids_limit: 200
+    mem_limit: 512m
+    cpus: 1.0
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    restart: unless-stopped
+    stop_grace_period: 20s
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/api/v1/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - uploads_data:/data/uploads
+    networks:
+      - edge
+      - backend_internal
+
+  frontend:
+    image: ${IMAGE_FRONTEND:-natielli/frontend}:${IMAGE_TAG:-latest}
+    build:
+      context: ..
+      dockerfile: frontend/Dockerfile
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-https://sistema.natielli.com.br/api/v1}
+        VITE_API_PACIENTES: "true"
+        VITE_API_PROFISSIONAIS: "true"
+        VITE_API_CONSULTAS: "true"
+        VITE_API_SALAS: "true"
+        VITE_API_UNIDADES: "true"
+        VITE_API_FINANCEIRO: "true"
+        VITE_API_TERAPIAS: "true"
+        VITE_API_ANAMNESES: "true"
+        VITE_API_ESTOQUE: "true"
+        VITE_API_RH: "true"
+        VITE_API_PLANOS: "true"
+        VITE_API_MARKETING: "true"
+        VITE_API_PRONTUARIO: "true"
+        VITE_API_RELATORIOS: "true"
+        VITE_API_CONTABILIDADE: "true"
+        VITE_API_COMODATO: "true"
+        VITE_API_CONTRATOS: "true"
+        VITE_API_AUDIT: "true"
+        VITE_AUTH_BOOTSTRAP: "false"
+    ports:
+      - "127.0.0.1:${PROD_FRONTEND_HOST_PORT:-8085}:8080"
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    # nginx temp/pid under /tmp (frontend/nginx-runtime.conf); avoid tmpfs on /var/cache/nginx
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+      - /var/run:rw,noexec,nosuid,size=8m
+      - /var/log/nginx:rw,noexec,nosuid,size=8m
+    pids_limit: 100
+    mem_limit: 128m
+    cpus: 0.5
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://127.0.0.1:8080/ || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    networks:
+      - edge
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-natielli}
+      POSTGRES_DB: ${POSTGRES_DB:-natielli}
+      POSTGRES_PASSWORD_FILE: /run/secrets/pg_password
+    command:
+      - postgres
+      - -c
+      - hba_file=/etc/postgresql/pg_hba.conf
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/pg_hba.conf:/etc/postgresql/pg_hba.conf:ro
+      - /etc/sistemanatielli/secrets/pg_password:/run/secrets/pg_password:ro
+    expose:
+      - "5432"
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 200
+    mem_limit: 512m
+    cpus: 1.0
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-natielli} -d ${POSTGRES_DB:-natielli}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    stop_grace_period: 20s
+    networks:
+      - backend_internal
+
+  migrate:
+    image: migrate/migrate
+    profiles: ["ops"]
+    env_file:
+      - /etc/sistemanatielli/app.env
+    volumes:
+      - ../backend/migrations:/migrations:ro
+    command: ["-path=/migrations", "-database=${DATABASE_URL}", "up"]
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - backend_internal
+
+volumes:
+  postgres_data:
+  uploads_data:
+
+networks:
+  backend_internal:
+    internal: true
+  edge:
+    driver: bridge

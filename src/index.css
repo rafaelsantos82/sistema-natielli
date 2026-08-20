@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Base colors */
+    --background: 0 0% 99.6%;
+    --foreground: 230 55% 15%;
+    
+    /* Card colors */
+    --card: 0 0% 100%;
+    --card-foreground: 230 55% 15%;
+    
+    /* Popover colors */
+    --popover: 0 0% 100%;
+    --popover-foreground: 230 55% 15%;
+    
+    /* Primary - Purple #392682 */
+    --primary: 261 55% 33%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 261 55% 28%;
+    
+    /* Secondary - Green #72B455 */
+    --secondary: 100 42% 52%;
+    --secondary-foreground: 0 0% 100%;
+    
+    /* Success - Green */
+    --success: 100 42% 52%;
+    --success-foreground: 0 0% 100%;
+    
+    /* Warning - Orange #E98622 */
+    --warning: 30 79% 52%;
+    --warning-foreground: 0 0% 100%;
+    
+    /* Destructive - Red #D92926 */
+    --destructive: 1 71% 50%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Info - Blue #1C6AAB */
+    --info: 206 72% 39%;
+    --info-foreground: 0 0% 100%;
+    
+    /* Lavender accent #675A9A */
+    --accent: 256 28% 48%;
+    --accent-foreground: 0 0% 100%;
+    
+    /* Navy blue #1E255A */
+    --navy: 232 54% 24%;
+    
+    /* Muted colors */
+    --muted: 230 15% 94%;
+    --muted-foreground: 230 10% 45%;
+    
+    /* Border and input */
+    --border: 230 15% 88%;
+    --input: 230 15% 88%;
+    --ring: 261 55% 33%;
+    
+    /* Radius */
+    --radius: 1rem;
+    
+    /* Sidebar colors */
+    --sidebar-background: 261 55% 33%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 0 0% 100%;
+    --sidebar-primary-foreground: 261 55% 33%;
+    --sidebar-accent: 261 55% 28%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 261 35% 25%;
+    --sidebar-ring: 100 42% 52%;
+    
+    /* Custom shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    --shadow-primary: 0 4px 12px -2px hsl(261 55% 33% / 0.2);
+    
+    /* Transitions */
+    --transition-base: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Chart colors */
+    --chart-1: 261 55% 33%;
+    --chart-2: 100 42% 52%;
+    --chart-3: 30 79% 52%;
+    --chart-4: 206 72% 39%;
+    --chart-5: 256 28% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold text-navy;
+  }
+}
+
+@layer utilities {
+  .shadow-primary {
+    box-shadow: var(--shadow-primary);
+  }
+  
+  .transition-base {
+    transition: var(--transition-base);
+  }
+  
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+}

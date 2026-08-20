@@ -1,0 +1,1 @@
+-- Enum values cannot be removed safely in PostgreSQL without recreating the type.

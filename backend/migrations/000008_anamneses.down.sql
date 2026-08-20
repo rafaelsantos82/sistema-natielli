@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS IF CASCADE;
+DROP TABLE IF EXISTS carimbos_atendimento CASCADE;
+DROP TABLE IF EXISTS registros_consentimento CASCADE;
+DROP TABLE IF EXISTS termos_consentimento CASCADE;
+DROP TABLE IF EXISTS respostas_anamnese CASCADE;
+DROP TABLE IF EXISTS anamneses CASCADE;

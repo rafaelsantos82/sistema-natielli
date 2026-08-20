@@ -1,0 +1,4 @@
+DROP TABLE IF EXISTS audit_log CASCADE;
+DROP TABLE IF EXISTS documentos_assinados CASCADE;
+DROP TABLE IF EXISTS aniversariantes CASCADE;
+DROP TABLE IF EXISTS notificacoes_agenda CASCADE;

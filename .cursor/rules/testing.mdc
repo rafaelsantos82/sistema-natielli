@@ -1,0 +1,21 @@
+---
+description: Estratégia mínima de testes e qualidade para mudanças
+alwaysApply: true
+---
+
+# Testing and Quality Gates
+
+- Toda mudança de regra de negócio exige testes proporcionais.
+- Priorizar testes unitários de services/use cases e validações.
+- Criar testes de integração para repositórios/banco quando aplicável.
+- Criar testes de handlers HTTP para contratos, status codes e erros.
+- Incluir casos de segurança básicos (auth, autorização, input inválido).
+- Rodar sempre que possível:
+  - `go test ./...`
+  - `go vet ./...`
+  - `govulncheck ./...`
+  - `gosec ./...`
+  - `golangci-lint run`
+- Se ferramenta não estiver instalada, informar como instalar e não inventar resultados.
+- Não concluir tarefa com falhas introduzidas sem explicitar risco e impacto.
+

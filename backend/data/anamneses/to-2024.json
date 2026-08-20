@@ -1,0 +1,691 @@
+{
+  "slug": "to-2024",
+  "meta": {
+    "source_file": "backend/docs/anamnese/ANAMNESE ESP TERAPIA 2024.md",
+    "extracted_at": "2026-05-27T11:57:47Z",
+    "extractor_version": "1",
+    "review_status": "draft"
+  },
+  "anamnese": {
+    "nome": "Anamnese Terapia Ocupacional 2024",
+    "especialidade": "Terapia Ocupacional",
+    "versao": "2024.1",
+    "status": "Ativa",
+    "observacoes": "Origem: ANAMNESE ESP TERAPIA 2024.md. Revisão clínica pendente."
+  },
+  "questionnaire": [
+    {
+      "linkId": "to_image1",
+      "text": "![][image1]",
+      "type": "text"
+    },
+    {
+      "linkId": "to_queixa_época_do_aparecimento_do_problema_atitudes_pré",
+      "text": "-Queixa/ época do aparecimento do problema/ Atitudes prévias para buscar solucionar a queixa:____________________________________________ ______________________________________________________________________ ______________________________________________________________________ ______________________________________________________________________ ______________________________________________________________________ ______________________________________________________________________ ______________________________________________________________________",
+      "type": "text"
+    },
+    {
+      "linkId": "gestação_a_gravidez_foi_planejada_por_ambos",
+      "text": "A gravidez foi planejada por ambos?",
+      "type": "text"
+    },
+    {
+      "linkId": "gestação_sim_não_quando_descobriu_a_gravidez",
+      "text": "Sim ( ) Não ( ) ______________________ Quando descobriu a gravidez?",
+      "type": "boolean"
+    },
+    {
+      "linkId": "gestação_como_foi_o_pré_natal",
+      "text": "_________________________________________ Como foi o pré-natal?",
+      "type": "text"
+    },
+    {
+      "linkId": "gestação_sofreu_algum_acidente_quedas_cirurgias",
+      "text": "_________________________________________________ Sofreu algum acidente, quedas, cirurgias?",
+      "type": "text"
+    },
+    {
+      "linkId": "gestação_sim_não_teve_alguma_doença_na_gestação",
+      "text": "Sim ( ) Não ( )___________________ ______________________________________________________________________ Teve alguma doença na gestação?",
+      "type": "boolean"
+    },
+    {
+      "linkId": "gestação_diabetes_hipertensão_infecções_zika",
+      "text": "(diabetes, hipertensão, infecções, zika...)",
+      "type": "text"
+    },
+    {
+      "linkId": "gestação_apresentou_alguma_intercorrência_na_gestação_sangram",
+      "text": "Apresentou alguma intercorrência na gestação? (Sangramentos, infecção urinária, depressão, ansiedade)",
+      "type": "text"
+    },
+    {
+      "linkId": "gestação_fez_uso_de_alguma_medicação",
+      "text": "Fez uso de alguma medicação?",
+      "type": "text"
+    },
+    {
+      "linkId": "gestação_sim_não_qual",
+      "text": "Sim ( ) Não ( ) Qual?",
+      "type": "boolean"
+    },
+    {
+      "linkId": "gestação_item",
+      "text": "_______________________",
+      "type": "text"
+    },
+    {
+      "linkId": "parto_e_condições_da_criança_no_nascimento_a_termo_semanas_pós_termo_semanas_prematuro_semanas_in",
+      "text": "( ) a termo ______ semanas ( ) pós-termo ____ semanas ( ) prematuro:____ semanas________ Incubadora-quanto Tempo",
+      "type": "choice",
+      "options": [
+        {
+          "value": "a_termo_semanas",
+          "label": ") a termo ______ semanas"
+        },
+        {
+          "value": "pós_termo_semanas",
+          "label": ") pós-termo ____ semanas"
+        }
+      ]
+    },
+    {
+      "linkId": "parto_e_condições_da_criança_no_nascimento_normal_cesariana_prevista_secundária",
+      "text": "( ) normal ( ) cesariana ( ) prevista ( ) secundária",
+      "type": "choice",
+      "options": [
+        {
+          "value": "normal",
+          "label": ") normal"
+        },
+        {
+          "value": "cesariana",
+          "label": ") cesariana"
+        },
+        {
+          "value": "prevista",
+          "label": ") prevista"
+        },
+        {
+          "value": "secundária",
+          "label": ") secundária"
+        }
+      ]
+    },
+    {
+      "linkId": "parto_e_condições_da_criança_no_nascimento_chorou_logo_ao_nascer_sim_não_não_sabe",
+      "text": "Chorou logo ao nascer? ( ) Sim ( ) Não ( ) não sabe",
+      "type": "choice",
+      "options": [
+        {
+          "value": "sim",
+          "label": "Sim"
+        },
+        {
+          "value": "nao",
+          "label": "Não"
+        },
+        {
+          "value": "nao_sei",
+          "label": "Não sei"
+        }
+      ]
+    },
+    {
+      "linkId": "parto_e_condições_da_criança_no_nascimento_cianótico_sim_não_não_sabe",
+      "text": "Cianótico? ( ) Sim ( ) Não ( ) não sabe",
+      "type": "choice",
+      "options": [
+        {
+          "value": "sim",
+          "label": "Sim"
+        },
+        {
+          "value": "nao",
+          "label": "Não"
+        },
+        {
+          "value": "nao_sei",
+          "label": "Não sei"
+        }
+      ]
+    },
+    {
+      "linkId": "parto_e_condições_da_criança_no_nascimento_tomou_medicamentos_sim_não_não_sabe",
+      "text": "Tomou medicamentos? ( ) Sim ( ) Não ( ) não sabe",
+      "type": "choice",
+      "options": [
+        {
+          "value": "sim",
+          "label": "Sim"
+        },
+        {
+          "value": "nao",
+          "label": "Não"
+        },
+        {
+          "value": "nao_sei",
+          "label": "Não sei"
+        }
+      ]
+    },
+    {
+      "linkId": "parto_e_condições_da_criança_no_nascimento_nota_do_apgar_1_5",
+      "text": "Nota do apgar: 1___________ 5",
+      "type": "text"
+    },
+    {
+      "linkId": "parto_e_condições_da_criança_no_nascimento_teve_icterícia",
+      "text": "Teve icterícia?",
+      "type": "text"
+    },
+    {
+      "linkId": "parto_e_condições_da_criança_no_nascimento_sim_não_não_sabe_se_sim_qual_foi_a_conduta_precisou_d",
+      "text": "( ) Sim ( ) Não( ) não sabe Se sim, qual foi a conduta:__________ ______________________________________________________________________ Precisou de cuidados especiais no berçário?",
+      "type": "choice",
+      "options": [
+        {
+          "value": "sim",
+          "label": "Sim"
+        },
+        {
+          "value": "nao",
+          "label": "Não"
+        },
+        {
+          "value": "nao_sei",
+          "label": "Não sei"
+        }
+      ]
+    },
+    {
+      "linkId": "parto_e_condições_da_criança_no_nascimento_sim_não_quais",
+      "text": "Sim ( ) Não ( ) Quais?",
+      "type": "boolean"
+    },
+    {
+      "linkId": "parto_e_condições_da_criança_no_nascimento_item",
+      "text": "_________",
+      "type": "text"
+    },
+    {
+      "linkId": "parto_e_condições_da_criança_no_nascimento_teve_alta_junto_com_a_mãe_teve_alguma_intercorrência",
+      "text": "Teve alta junto com a mãe: ____________________________________________ Teve alguma intercorrência nos primeiros meses de vida? _________________",
+      "type": "text"
+    },
+    {
+      "linkId": "histórico_alimentar_mamou_exclusivamente_no_seio",
+      "text": "Mamou exclusivamente no seio?",
+      "type": "text"
+    },
+    {
+      "linkId": "histórico_alimentar_sim_até",
+      "text": "( ) Sim. Até?",
+      "type": "text"
+    },
+    {
+      "linkId": "histórico_alimentar_não_por_que_não",
+      "text": "______________ ( ) Não. Por que não?",
+      "type": "text"
+    },
+    {
+      "linkId": "histórico_alimentar_fez_faz_uso_de_mamadeira",
+      "text": "Fez/Faz uso de mamadeira?",
+      "type": "text"
+    },
+    {
+      "linkId": "histórico_alimentar_não_sim_até_quando",
+      "text": "( ) não ( ) sim, até quando?",
+      "type": "boolean"
+    },
+    {
+      "linkId": "histórico_alimentar_possui_alguma_alergia_alimentar",
+      "text": "___________________ Possui alguma alergia alimentar?",
+      "type": "text"
+    },
+    {
+      "linkId": "histórico_alimentar_quando_iniciou_a_ingestão_de_sólidos_além_das_papinh",
+      "text": "_______________________________________ Quando iniciou a ingestão de sólidos além das papinhas?",
+      "type": "text"
+    },
+    {
+      "linkId": "histórico_alimentar_iniciou_introdução_alimentar_em_já_se_sentava_sozinh",
+      "text": "Iniciou introdução alimentar em ________________ já se sentava sozinho(a) ou engatinhava?",
+      "type": "text"
+    },
+    {
+      "linkId": "histórico_alimentar_aceitou_bem_as_trocas_de_consistência_da_alimentação",
+      "text": "Aceitou bem as trocas de consistência da alimentação? ( ) Sim ( ) Não Alimentação atual (variedade, tipo, apetite, mastigação, texturas, consistência):",
+      "type": "boolean"
+    },
+    {
+      "linkId": "histórico_alimentar_atualmente_consome_todos_os_grupos_alimentares_proteín",
+      "text": "Atualmente consome todos os grupos Alimentares? (Proteínas, verduras, legumes, frutas):_______________________________________________________",
+      "type": "text"
+    },
+    {
+      "linkId": "histórico_alimentar_tocava_na_comida",
+      "text": "Tocava na comida?",
+      "type": "text"
+    },
+    {
+      "linkId": "histórico_alimentar_sim_não_comia_alimentos_variados_e_parou_sim_não_com",
+      "text": "Sim ( ) Não ( ) _______________________________________ Comia alimentos variados e parou Sim ( ) Não ( ) Com quantos meses/idade parou?",
+      "type": "boolean"
+    },
+    {
+      "linkId": "histórico_alimentar_apresenta_resposta_aversivas_quando_é_aproximado_dos_a",
+      "text": "_______________________________________________________________ Apresenta resposta aversivas quando é aproximado dos alimentos?",
+      "type": "text"
+    },
+    {
+      "linkId": "histórico_alimentar_ânsia_de_vomito_caretas_e_nojo_não_quer_ficar_perto_e",
+      "text": "(ânsia de vomito, caretas e nojo, não quer ficar perto, evita olhar, inicia comportamentos inadequados)",
+      "type": "text"
+    },
+    {
+      "linkId": "histórico_alimentar_se_alimenta_sozinho",
+      "text": "Se alimenta sozinho?",
+      "type": "text"
+    },
+    {
+      "linkId": "histórico_alimentar_onde_se_alimenta",
+      "text": "________________________ Onde se alimenta ?",
+      "type": "text"
+    },
+    {
+      "linkId": "histórico_alimentar_bebe_em_copo_aberto",
+      "text": "Bebe em copo aberto?",
+      "type": "text"
+    },
+    {
+      "linkId": "histórico_alimentar_usa",
+      "text": "_______________________________________________Usa",
+      "type": "text"
+    },
+    {
+      "linkId": "histórico_alimentar_usa_garfo_ou_colher",
+      "text": "Usa garfo ( ) ou Colher?",
+      "type": "text"
+    },
+    {
+      "linkId": "histórico_alimentar_se_suja_muito_ao_comer_sozinho",
+      "text": "( ) Se suja muito ao comer sozinho?",
+      "type": "text"
+    },
+    {
+      "linkId": "histórico_alimentar_usa_garfo_e_faca",
+      "text": "Usa garfo e faca?",
+      "type": "text"
+    },
+    {
+      "linkId": "histórico_alimentar_precisa_comer_sempre_com_os_mesmos_utensílios",
+      "text": "Precisa comer sempre com os mesmos utensílios?____________________________________________________________",
+      "type": "text"
+    },
+    {
+      "linkId": "histórico_alimentar_descreva_a_rotina_de_um_dia_típico_na_rotina_de_seu_fi",
+      "text": "Descreva a rotina de um dia típico na rotina de seu filho em casa__________________________________________________________________ ______________________________________________________________________ ______________________________________________________________________ ______________________________________________________________________ ______________________________________________________________________",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvolvimento_neuropsicomotor_gostava_de_ficar_de_bruços_mais_ativo_de_bruços",
+      "text": "Gostava de ficar de bruços: _____________ mais ativo de bruços:",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvolvimento_neuropsicomotor_apresentou_dificuldades_rolou_sentou_sozinho_engatinhou",
+      "text": "Apresentou dificuldades? ______________________________________________________________________ Rolou: ______________________________________________________________ Sentou sozinho: _____________________________________________________ Engatinhou: _________________________________________________________ OBS:_________________________________________________________________ Andou: ______________________________________________________________ Pular:________________________________________________________________ Pular com um pé só: ______________________________________________________________________ Andar de bicicleta _____________________________________________________ -Sobe e desce escadas:_________________________________________________ -Desloca-se nas dependências sem ajuda",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvolvimento_neuropsicomotor_membros_superiores",
+      "text": "– Membros Superiores",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvolvimento_neuropsicomotor_motricidade_ampla_e_fina",
+      "text": "Motricidade ampla e fina:",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvolvimento_neuropsicomotor_lateralidade_d_e",
+      "text": "- Lateralidade D ( ) E ( )",
+      "type": "choice",
+      "options": [
+        {
+          "value": "lateralidade_d",
+          "label": "- Lateralidade D"
+        },
+        {
+          "value": "e",
+          "label": ") E"
+        }
+      ]
+    },
+    {
+      "linkId": "desenvolvimento_neuropsicomotor_segurar_soltar",
+      "text": "-Segurar:_________ -Soltar:",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvolvimento_neuropsicomotor_atarraxar_desatarraxar",
+      "text": "- Atarraxar: ___________________ - Desatarraxar:",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvolvimento_neuropsicomotor_rasgar_papel_amassar",
+      "text": "Rasgar Papel:________ -Amassar",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvolvimento_neuropsicomotor_transferir_cruzando_linha_média",
+      "text": "-Transferir cruzando linha média",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvolvimento_neuropsicomotor_jogar_encaixe_grosso",
+      "text": "-Jogar:______________ -Encaixe grosso:",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvolvimento_neuropsicomotor_encaixe_fino",
+      "text": "-Encaixe fino:",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvolvimento_neuropsicomotor_tesoura_tipo_de_preensão_que_realiza_pinça_trípode_p",
+      "text": "-Tesoura:____________- Tipo de preensão que realiza:__________________ -Pinça trípode ( ) Polpa-polpa ( ) Cilíndrica ( ) preensão palmar( ) OBS:_________________________________________________________________",
+      "type": "choice",
+      "options": [
+        {
+          "value": "polpa_polpa",
+          "label": ") Polpa-polpa"
+        },
+        {
+          "value": "cilíndrica",
+          "label": ") Cilíndrica"
+        },
+        {
+          "value": "preensão_palmar",
+          "label": ") preensão palmar"
+        }
+      ]
+    },
+    {
+      "linkId": "brincar_qual_brinquedo_e_ou_atividades_favoritas_de_seu_filho",
+      "text": "Qual brinquedo e ou atividades favoritas de seu filho?",
+      "type": "text"
+    },
+    {
+      "linkId": "brincar_seu_filho_possui_algum_personagem_ou_desenho_preferido",
+      "text": "Seu filho possui algum personagem ou desenho preferido?",
+      "type": "text"
+    },
+    {
+      "linkId": "brincar_prefere_brincar_em_grandes_grupos_ou_pequenos",
+      "text": "Prefere brincar em grandes grupos ou pequenos?",
+      "type": "text"
+    },
+    {
+      "linkId": "brincar_prefere_brincadeiras_ativas_ou_mais_quietas_e_sentadas",
+      "text": "Prefere brincadeiras ativas ou mais quietas e sentadas?",
+      "type": "text"
+    },
+    {
+      "linkId": "brincar_realiza_encaixes_em_figura",
+      "text": "Realiza encaixes em figura",
+      "type": "text"
+    },
+    {
+      "linkId": "brincar_seu_filho_gosta_de_brincadeiras_imaginárias",
+      "text": "Seu filho gosta de brincadeiras imaginárias?",
+      "type": "text"
+    },
+    {
+      "linkId": "brincar_ele_a_sabe_empilhar",
+      "text": "Ele(a) sabe empilhar?__________________________________________________________",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvoldesempenho_ocupacional_e_autonomia_tira_a_blusa_tira_a_cueca_calcinha_tira_a_calça_tira_o",
+      "text": "| | Tira a blusa: Tira a cueca calcinha: Tira a calça: Tira o sapato: Tira meia: |",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvoldesempenho_ocupacional_e_autonomia_controle_de_esfíncteres_desfralde_diurno_e_noturno",
+      "text": "| CONTROLE DE ESFÍNCTERES | Desfralde diurno e noturno?",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvoldesempenho_ocupacional_e_autonomia_consegue_se_limpar_após_defecar",
+      "text": "Consegue se limpar após defecar?",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvoldesempenho_ocupacional_e_autonomia_higiene_toma_banho_sozinho_a",
+      "text": "| HIGIENE | Toma banho sozinho (a) ?",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvoldesempenho_ocupacional_e_autonomia_auxilia_com_shampoo_e_condicionador",
+      "text": "Auxilia com shampoo e condicionador?",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvoldesempenho_ocupacional_e_autonomia_se_ensaboa",
+      "text": "Se ensaboa?",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvoldesempenho_ocupacional_e_autonomia_escova_os_dentes_sozinho_a",
+      "text": "Escova os dentes sozinho (a)?",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvoldesempenho_ocupacional_e_autonomia_penteia_o_cabelo_sozinho_a",
+      "text": "| | Penteia o cabelo sozinho (a)?",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvoldesempenho_ocupacional_e_autonomia_permite_que_cortem_seu_cabelo",
+      "text": "Permite que cortem seu cabelo?",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvoldesempenho_ocupacional_e_autonomia_permite_que_cortem_suas_unhas",
+      "text": "Permite que cortem suas unhas?",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvoldesempenho_ocupacional_e_autonomia_descanso_e_sono_possui_um_sono_tranquilo",
+      "text": "| DESCANSO E SONO | Possui um sono tranquilo?",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvoldesempenho_ocupacional_e_autonomia_utiliza_algum_remédio_para_dormir",
+      "text": "Utiliza algum remédio para dormir?",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvoldesempenho_ocupacional_e_autonomia_dorme_por_tempo_suficiente",
+      "text": "Dorme por tempo suficiente?",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvoldesempenho_ocupacional_e_autonomia_participação_social_consegue_ir_a_passeios_e_eventos",
+      "text": "| PARTICIPAÇÃO SOCIAL | Consegue ir a passeios e eventos em família?",
+      "type": "text"
+    },
+    {
+      "linkId": "desenvoldesempenho_ocupacional_e_autonomia_consegue_participar_de_situações_sociais_como_ir_à_i",
+      "text": "Consegue participar de situações sociais como ir à igreja, festas temáticas na escola, passeios a shoppings e museus?",
+      "type": "text"
+    },
+    {
+      "linkId": "vias_sensoriais_fez_o_teste_do_olhinho_sim_não_resultado_normal_altera",
+      "text": "Fez o teste do olhinho? Sim( ) Não( )Resultado: Normal( ) Alterado ( ) VIAS SENSORIAIS",
+      "type": "boolean"
+    },
+    {
+      "linkId": "vias_sensoriais_já_fez_algum_outro_teste_oftalmológico_sim_não",
+      "text": "Já fez algum outro teste oftalmológico? Sim( ) Não( )",
+      "type": "boolean"
+    },
+    {
+      "linkId": "vias_sensoriais_algum_problema",
+      "text": "____________________________________________________ Algum problema?",
+      "type": "text"
+    },
+    {
+      "linkId": "vias_sensoriais_sim_não_qual",
+      "text": "Sim ( ) Não( ) Qual ?",
+      "type": "boolean"
+    },
+    {
+      "linkId": "vias_sensoriais_usa_óculos",
+      "text": "Usa óculos ?",
+      "type": "text"
+    },
+    {
+      "linkId": "vias_sensoriais_sim_não_desde_quando",
+      "text": "Sim( ) Não( ) desde quando?",
+      "type": "boolean"
+    },
+    {
+      "linkId": "vias_sensoriais_fez_o_teste_da_orelhinha_sim_não_resultado_normal_alte",
+      "text": "Fez o teste da orelhinha? Sim( ) Não( )Resultado: Normal( ) Alterado ( )",
+      "type": "boolean"
+    },
+    {
+      "linkId": "vias_sensoriais_já_fez_algum_outro_exame_audiológico",
+      "text": "Já fez algum outro exame audiológico?",
+      "type": "text"
+    },
+    {
+      "linkId": "vias_sensoriais_sim_não_quando",
+      "text": "Sim( ) Não( Quando?",
+      "type": "boolean"
+    },
+    {
+      "linkId": "parece_não_escutar_dificuldade_para_compreender_em_ambientes_ruidosos_perg",
+      "text": "( )DIFICULDADE PARA COMPREENDER EM AMBIENTES RUIDOSOS ( )PERGUNTA MUITO “O QUÊ?” OU PEDE PARA REPETIR ( )FICA MUITO IRRITADO COM SONS ALTOS",
+      "type": "boolean"
+    },
+    {
+      "linkId": "parece_não_escutar_rolha_de_cera",
+      "text": "( )ROLHA DE CERA",
+      "type": "text"
+    },
+    {
+      "linkId": "parece_não_escutar_fez_o_teste_da_linguinha_sim_não_resultado_normal_alte",
+      "text": "Fez o teste da linguinha? Sim( ) Não( )Resultado: Normal( ) Alterado ( )",
+      "type": "boolean"
+    },
+    {
+      "linkId": "parece_não_escutar_apresenta_dificuldade_para_tocar_diferentes_texturas_e",
+      "text": "Apresenta dificuldade para tocar diferentes texturas e temperaturas?",
+      "type": "text"
+    },
+    {
+      "linkId": "parece_não_escutar_apresenta_hiper_ou_hiporreação_à_dor",
+      "text": "Apresenta hiper ou hiporreação à dor?",
+      "type": "text"
+    },
+    {
+      "linkId": "parece_não_escutar_apresenta_reações_exageradas_ao_sentir_determinados_c",
+      "text": "______________________________________________________________________ Apresenta reações exageradas ao sentir determinados cheiros?",
+      "type": "text"
+    },
+    {
+      "linkId": "parece_não_escutar_possui_medo_de_algum_brinquedo_como_balanço_escorrega",
+      "text": "______________________________________________________________________ Possui medo de algum brinquedo como balanço, escorrega, gangorra?",
+      "type": "text"
+    },
+    {
+      "linkId": "parece_não_escutar_sabe_pular_no_pula_pula_ou_ama_elástica",
+      "text": "Sabe pular no pula-pula ou ama elástica?",
+      "type": "text"
+    },
+    {
+      "linkId": "autonomia_veste_a_blusa_veste_a_cuecacalcinha_veste_a_calça_colo",
+      "text": "Veste a blusa: Veste a cuecacalcinha: Veste a calça: Coloca o sapato: Coloca meia:",
+      "type": "text"
+    },
+    {
+      "linkId": "autonomia_tira_a_blusa_tira_a_cueca_calcinha_tira_a_calça_tira_o",
+      "text": "Tira a blusa: Tira a cueca calcinha: Tira a calça: Tira o sapato: Tira meia:",
+      "type": "text"
+    },
+    {
+      "linkId": "autonomia_desfralde_diurno_e_noturno",
+      "text": "Desfralde diurno e noturno?",
+      "type": "text"
+    },
+    {
+      "linkId": "autonomia_consegue_se_limpar_após_defecar",
+      "text": "Consegue se limpar após defecar?",
+      "type": "text"
+    },
+    {
+      "linkId": "autonomia_toma_banho_sozinho_a",
+      "text": "Toma banho sozinho (a) ?",
+      "type": "text"
+    },
+    {
+      "linkId": "autonomia_auxilia_com_shampoo_e_condicionador",
+      "text": "Auxilia com shampoo e condicionador?",
+      "type": "text"
+    },
+    {
+      "linkId": "autonomia_se_ensaboa",
+      "text": "Se ensaboa?",
+      "type": "text"
+    },
+    {
+      "linkId": "autonomia_escova_os_dentes_sozinho_a",
+      "text": "Escova os dentes sozinho (a)?",
+      "type": "text"
+    },
+    {
+      "linkId": "autonomia_penteia_o_cabelo_sozinho_a",
+      "text": "Penteia o cabelo sozinho (a)?",
+      "type": "text"
+    },
+    {
+      "linkId": "autonomia_permite_que_cortem_seu_cabelo",
+      "text": "Permite que cortem seu cabelo?",
+      "type": "text"
+    },
+    {
+      "linkId": "autonomia_permite_que_cortem_suas_unhas",
+      "text": "Permite que cortem suas unhas?",
+      "type": "text"
+    },
+    {
+      "linkId": "autonomia_possui_um_sono_tranquilo",
+      "text": "Possui um sono tranquilo?",
+      "type": "text"
+    },
+    {
+      "linkId": "autonomia_utiliza_algum_remédio_para_dormir",
+      "text": "Utiliza algum remédio para dormir?",
+      "type": "text"
+    },
+    {
+      "linkId": "autonomia_dorme_por_tempo_suficiente",
+      "text": "Dorme por tempo suficiente?",
+      "type": "text"
+    },
+    {
+      "linkId": "autonomia_consegue_ir_a_passeios_e_eventos_em_família",
+      "text": "Consegue ir a passeios e eventos em família?",
+      "type": "text"
+    },
+    {
+      "linkId": "autonomia_consegue_participar_de_situações_sociais_como_ir_à_i",
+      "text": "Consegue participar de situações sociais como ir à igreja, festas temáticas na escola, passeios a shoppings e museus?",
+      "type": "text"
+    }
+  ]
+}

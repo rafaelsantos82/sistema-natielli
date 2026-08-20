@@ -1,0 +1,19 @@
+---
+description: Regras para integração segura com frontend gerado no Lovable
+alwaysApply: true
+---
+
+# Frontend Lovable Integration
+
+- Este repositório nasceu no Lovable; preservar rotas, entidades e UX existentes.
+- Antes de criar endpoint, mapear telas/fluxos e contratos esperados no frontend.
+- Evitar breaking change em payload sem plano de transição/versionamento.
+- Preferir JSON consistente:
+  - sucesso: `{ "data": ..., "meta": ... }`
+  - erro: `{ "error": { "code": "...", "message": "...", "details": [] } }`
+- Mensagens de erro devem ser amigáveis ao frontend e sem vazamento técnico.
+- Introduzir paginação/filtros em endpoints de listagem para performance.
+- Em mudanças de autenticação/autorização, validar impacto em `AuthContext`, rotas protegidas e navegação.
+- Como estado atual usa forte persistência local, transição para backend deve ser incremental e compatível.
+- Sempre listar impacto esperado no frontend em toda proposta de mudança backend.
+

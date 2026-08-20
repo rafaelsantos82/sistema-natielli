@@ -1,0 +1,19 @@
+---
+description: Padrões PostgreSQL, schema e performance
+alwaysApply: true
+---
+
+# PostgreSQL Standards
+
+- Toda alteração de schema deve ser via migration versionada (up/down).
+- Nunca alterar schema manualmente em produção sem migration rastreável.
+- Modelar com constraints reais: PK, FK, UNIQUE, CHECK e NOT NULL quando necessário.
+- Criar índices orientados por padrão de consulta; justificar custo de escrita.
+- Evitar N+1 e full scans evitáveis; usar paginação e limites em listagens.
+- Usar transações em operações dependentes/múltiplas escritas.
+- Aplicar `deleted_at` para soft delete quando fizer sentido de negócio/auditoria.
+- Preservar auditabilidade com `created_at`/`updated_at` consistentes.
+- Evitar campos genéricos sem semântica; JSONB apenas com justificativa arquitetural.
+- Sempre avaliar impacto de schema em contratos e dados existentes.
+- Manter `.env.example` atualizado para variáveis de banco e migração.
+

@@ -1,0 +1,34 @@
+---
+description: Padrões herdados, adaptados e rejeitados do projeto NextBridgeAI
+alwaysApply: true
+---
+
+# Architecture From NextBridgeAI
+
+## Herdar
+
+- Estrutura em camadas (`interfaces` -> `application/service` -> `repository`).
+- Separação de responsabilidades com handlers finos e serviços de domínio.
+- Uso de migrations versionadas para PostgreSQL.
+- Uso de logger estruturado (zap) e observabilidade (Sentry) com redaction.
+- Docker com hardening (non-root, no-new-privileges, healthchecks, recursos controlados).
+- Configuração centralizada por environment variables.
+
+## Adaptar
+
+- Container/DI muito grande em `NextBridgeAI`: manter DI modular para evitar arquivo monolítico.
+- CORS: usar lista por env e permitir apenas origens reais do frontend atual.
+- Logging: manter estruturado, reduzir logs de debug em produção.
+- Camada de cache/filas: introduzir apenas quando houver necessidade real.
+
+## Rejeitar
+
+- Credenciais hardcoded em rotas (ex.: proteção Swagger com usuário/senha fixos).
+- Uso de token admin global via env como bypass sem trilha robusta.
+- Logs de debug excessivos em runtime de produção.
+- Qualquer prática que exponha segredo, PII ou informação sensível.
+
+## Diretriz obrigatória
+
+- Antes de decisões estruturais de backend neste projeto, comparar explicitamente com `../NextBridgeAI` e registrar: o que foi herdado, o que foi adaptado e o que foi rejeitado, com justificativa técnica.
+

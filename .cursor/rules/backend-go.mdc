@@ -1,0 +1,23 @@
+---
+description: Padrões enterprise para backend Go
+alwaysApply: true
+---
+
+# Backend Go Standards
+
+- Go idiomático, explícito e simples; evitar abstrações desnecessárias.
+- Handlers finos: parsing/validação HTTP, delegação para service/use case, retorno padronizado.
+- Services concentram regra de negócio; repositories isolam persistência.
+- Definir DTOs de request/response para contratos estáveis.
+- Propagar `context.Context` em toda cadeia I/O.
+- Definir timeouts para HTTP client/server e operações de banco/externas.
+- Implementar graceful shutdown para HTTP server e workers.
+- Erros devem ser consistentes e não vazar detalhes internos ao cliente.
+- Logs estruturados com correlação (ex.: request ID), sem dados sensíveis.
+- Middleware mínimo obrigatório: recovery, logging, authN/authZ, CORS, rate limit.
+- Configuração via env vars e arquivo `.env.example`; nunca hardcode de segredo.
+- Resposta de sucesso preferencial:
+  `{ "data": {}, "meta": {} }`
+- Resposta de erro preferencial:
+  `{ "error": { "code": "SOME_CODE", "message": "...", "details": [] } }`
+

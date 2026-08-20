@@ -1,0 +1,19 @@
+---
+description: Boas práticas de Docker, compose e operação local
+alwaysApply: true
+---
+
+# Docker and DevOps
+
+- Dockerfiles devem ser seguros e performáticos (preferir multi-stage build).
+- Container de app deve rodar como usuário não-root.
+- Incluir `.dockerignore` e minimizar contexto de build.
+- Usar imagens estáveis/atualizadas e reduzir superfície de ataque.
+- `docker-compose` local deve separar app, postgres e serviços auxiliares.
+- Definir `healthcheck` para app e dependências críticas.
+- Expor apenas portas necessárias; preferir bind local em ambiente dev.
+- Configuração via env vars; sem hardcode de segredos.
+- Revisar volumes e permissões para evitar escalonamento/exposição.
+- Garantir compatibilidade de CORS/origens entre frontend Lovable e backend containerizado.
+- Documentar comandos operacionais principais (build, up, logs, migrate, test).
+

@@ -1,0 +1,20 @@
+---
+description: Guardrails de AppSec e hardening obrigatório
+alwaysApply: true
+---
+
+# Security First
+
+- Priorizar OWASP Top 10 em toda mudança de backend e integração.
+- Validar input de forma explícita; sanitizar output quando aplicável.
+- Prevenir SQL Injection com queries parametrizadas/ORM seguro.
+- Proteger autenticação/autorização contra Broken Auth, Broken Access Control e IDOR.
+- Em endpoints sensíveis: rate limit, lockout progressivo e auditoria.
+- CORS restritivo por ambiente/domínio permitido; nunca wildcard em produção com credenciais.
+- Tokens/JWT: expiração, assinatura forte, rotação e validação estrita.
+- Senhas: hash robusto (bcrypt/argon2) + política de complexidade quando aplicável.
+- Nunca logar segredos, PII desnecessária, headers de auth ou cookies.
+- Garantir headers de segurança e tratamento de erro sem stacktrace para cliente.
+- Segurança em container: non-root, princípio do menor privilégio, imagem enxuta e atualizada.
+- Se a mudança tocar authz/authn, exigir revisão de segurança antes de concluir.
+
