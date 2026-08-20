@@ -26,7 +26,13 @@ export COMPOSE_PROJECT_NAME IMAGE_API IMAGE_FRONTEND IMAGE_TAG
 export PROD_API_HOST_PORT PROD_FRONTEND_HOST_PORT
 
 log_info "Backing up PostgreSQL to ${out}"
-compose_cmd exec -T db pg_dump -U "${POSTGRES_USER:-natielli}" "${POSTGRES_DB:-natielli}" | gzip > "${out}"
+# Senha só dentro do container (POSTGRES_PASSWORD_FILE); não ecoar.
+compose_cmd exec -T db sh -c 'set -euo pipefail
+if [[ -f /run/secrets/pg_password ]]; then
+  export PGPASSWORD="$(cat /run/secrets/pg_password)"
+fi
+pg_dump -U "${POSTGRES_USER:-natielli}" -d "${POSTGRES_DB:-natielli}"
+' | gzip > "${out}"
 
 find "${BACKUP_DIR}" -name 'natielli_*.sql.gz' -mtime +"${RETENTION_DAYS}" -delete
 log_info "Backup done (${out})"
